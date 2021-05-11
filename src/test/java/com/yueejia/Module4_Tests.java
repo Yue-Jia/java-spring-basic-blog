@@ -209,7 +209,7 @@ public class Module4_Tests {
         assertNotNull(message, findMethod);
 
         List<Post> posts = spyRepository.findAll();
-        message = "Task 4: The method `getAllPosts()` does not exist in the PostRepository class.";
+        message = "Task 4: The method `findAll()` does not exist in the PostRepository class.";
         assertNotNull(message, posts);
 
         Post tempPost = null;

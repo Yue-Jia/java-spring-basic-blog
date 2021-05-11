@@ -29,7 +29,7 @@
 
 body {
    min-height:100vh;
-   background: #deeaee 0% 0% no-repeat padding-box;
+   background: #F5F5F5 0% 0% no-repeat padding-box;
 }
 
 
@@ -76,7 +76,7 @@ body {
   }
 
   .navbar {
-    background-color: #1258DC;
+    background-color: #F5F5F5;
     padding-top: 20px;
     padding-bottom: 20px;
   }
@@ -94,12 +94,12 @@ body {
     color: #ecf0f1;
   }
   .nav-item a {
-    color: #ecf0f1;
+    color: #A0522D;
   }
 
   .nav-item a:hover,
    .nav-item a:focus{
-      color: #bbbbbb;
+      color: #FFA07A;
       text-decoration: none;
     }
 
