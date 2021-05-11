@@ -1,8 +1,8 @@
-package com.pluralsight.blog;
+package com.yueejia;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import com.pluralsight.blog.data.PostRepository;
+import com.yueejia.data.PostRepository;
 import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;

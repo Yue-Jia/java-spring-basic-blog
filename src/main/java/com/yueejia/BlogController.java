@@ -1,27 +1,30 @@
-package com.pluralsight.blog;
+package com.yueejia;
 
-import com.pluralsight.blog.data.PostRepository;
-import com.pluralsight.blog.model.Post;
+import com.yueejia.data.PostRepository;
+import com.yueejia.model.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import java.util.List;
 
 @Controller
 public class BlogController {
+    @Autowired
     private PostRepository postRepository;
     public BlogController(PostRepository pr){
         postRepository = pr;
     }
-    @RequestMapping("/")
+    @GetMapping("/")
     public String listPosts(ModelMap model){
-        List<Post> lp = postRepository.getAllPosts();
+        List<Post> lp = postRepository.findAll();
         model.put("posts",lp);
         return "home";
     }
-    @RequestMapping("/post/{id}")
+    @GetMapping("/post/{id}")
     public String postDetails(@PathVariable Long id, ModelMap modelMap){
         Post post= postRepository.findById(id);
         modelMap.put("post",post);
