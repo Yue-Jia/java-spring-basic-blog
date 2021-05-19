@@ -9,13 +9,13 @@
 }
 @font-face {
     font-family: Gotham;
-    src: url(../fonts/GothamBold.ttf);
+    src: url(../fonts/GothamBold.otf);
     font-variant: Bold;
 }
 
 @font-face {
     font-family: GothamBook;
-    src: url(../fonts/GothamBook.ttf);
+    src: url(../fonts/GothamBook.otf);
 }
 
 @media (min-width: 1200px) {
@@ -27,10 +27,10 @@
 }
 }
 
-body {
+  body {
    min-height:100vh;
    background: #F5F5F5 0% 0% no-repeat padding-box;
-}
+  }
 
 
   footer {
