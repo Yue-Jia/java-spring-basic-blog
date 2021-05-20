@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +27,8 @@ public class Post {
     private User user;
     private Date date;
     private String img;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Comment> comment = new ArrayList<>();
 
 
     public String getDateStr() {

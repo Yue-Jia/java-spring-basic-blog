@@ -28,4 +28,6 @@ public class User {
     private Date lastLogin;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Post> post = new ArrayList<Post>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Comment> comment = new ArrayList<>();
 }
