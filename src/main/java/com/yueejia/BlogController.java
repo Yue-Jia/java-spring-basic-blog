@@ -24,6 +24,10 @@ public class BlogController {
         model.put("posts",lp);
         return "home";
     }
+    @GetMapping("/listP")
+    public String goListP(){
+        return "listPost";
+    }
     @GetMapping("/post/{id}")
     public String postDetails(@PathVariable Long id, ModelMap modelMap){
         Post post= postRepository.findById(id);
