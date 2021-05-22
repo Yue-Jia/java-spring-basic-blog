@@ -30,4 +30,6 @@ public class User {
     private List<Post> post = new ArrayList<Post>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Role> role = new ArrayList<>();
 }

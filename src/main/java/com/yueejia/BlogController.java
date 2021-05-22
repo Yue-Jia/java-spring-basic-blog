@@ -22,16 +22,20 @@ public class BlogController {
     public String listPosts(ModelMap model){
         List<Post> lp = postRepository.findAll();
         model.put("posts",lp);
-        return "home";
+        return "client/home";
     }
     @GetMapping("/listP")
     public String goListP(){
-        return "listPost";
+        return "client/listPost";
+    }
+    @GetMapping("/ownerLogin")
+    public String goOwnerLogin(){
+        return "owner/ownerLogin";
     }
     @GetMapping("/post/{id}")
     public String postDetails(@PathVariable Long id, ModelMap modelMap){
         Post post= postRepository.findById(id);
         modelMap.put("post",post);
-        return "post-details";
+        return "client/post-details";
     }
 }
