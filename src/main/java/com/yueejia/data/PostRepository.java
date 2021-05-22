@@ -1,20 +1,18 @@
 package com.yueejia.data;
 
-import com.yueejia.model.Post;
+import com.yueejia.model.BlogPost;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
 //@Component
-public interface PostRepository extends CrudRepository<Post,Integer> {
-    Post findById(Long id);
-    Post findByDate(Date date);
-    Post findByUserId(Long userId);
-    List<Post> findAll();
+public interface PostRepository extends CrudRepository<BlogPost,Integer> {
+    BlogPost findById(Long id);
+    BlogPost findByZonedDateTime(ZonedDateTime zonedDateTime);
+    BlogPost findByUserId(Long userId);
+    List<BlogPost> findAll();
 //    private final List<Post> ALL_POSTS = new ArrayList<>(Arrays.asList(
 //            new Post(1l, "Earbuds",
 //                    "You have got to try these in your ears. So tiny and can even block the sounds of screaming toddlers if you so desire.",

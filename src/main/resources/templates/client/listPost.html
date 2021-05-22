@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,8 +14,8 @@
 <main role="main" class="py-5 flex-fill">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4 py-2 box-shadow" th:each="entry : ${posts}">
-                <img class="card-img-top" th:src="'https://picsum.photos/id/'+${entry.getId()}+'/500/350'" alt="Post Title Image"><a class="post-url" th:href="@{'/post/'+${entry.getId()}}"></a></img>
+            <div class="col-sm-4 py-2 box-shadow" th:each="entry : ${blogPosts}">
+                <img class="card-img-top" th:src="'https://picsum.photos/id/'+${entry.getId()}+'/500/350'" alt="Post Title Image"><a class="blogPost-url" th:href="@{'/blogPost/'+${entry.getId()}}"></a></img>
                 <div class="card-body">
                     <div class="card-title" th:text="${entry.getTitle()}"></div>
                     <!--                    <p class="card-text" th:text="${entry.getLead()}"></p>-->

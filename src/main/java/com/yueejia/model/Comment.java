@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,7 +21,7 @@ public class Comment {
     private String content;
     @ManyToOne
     private User user;
-    private Date date;
+    private ZonedDateTime zonedDateTime;
     @ManyToOne
-    private Post post;
+    private BlogPost blogPost;
 }

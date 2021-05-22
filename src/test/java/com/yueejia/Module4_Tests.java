@@ -1,7 +1,7 @@
 package com.yueejia;
 
 import com.yueejia.data.PostRepository;
-import com.yueejia.model.Post;
+import com.yueejia.model.BlogPost;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,7 +27,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -50,7 +49,7 @@ public class Module4_Tests {
 
     private PostRepository spyRepository;
 
-    private List<Post> ALL_POSTS;
+    private List<BlogPost> ALL_Blog_POSTS;
 
     private Method method = null;
 
@@ -79,7 +78,7 @@ public class Module4_Tests {
             //e.printStackTrace();
         }
 
-        ALL_POSTS = new ArrayList<>(Arrays.asList(
+        ALL_Blog_POSTS = new ArrayList<>(Arrays.asList(
 //                new Post(1l, "Earbuds",
 //                        "You have got to try these in your ears. So tiny and can even block the sounds of screaming toddlers if you so desire.",
 //                        "You have got to try these in your ears. So tiny and can even block the sounds of screaming toddlers if you so desire.",
@@ -147,7 +146,7 @@ public class Module4_Tests {
         for (int i=0; i < linkElements.size(); i++) {
             Element element = linkElements.get(i);
             url = element.attr("href");
-            wanted = "/post/"+ALL_POSTS.get(i).getId();
+            wanted = "/post/"+ ALL_Blog_POSTS.get(i).getId();
 
             if (!url.equals(wanted)) {
                 anchorTagsExist = false;
@@ -198,32 +197,32 @@ public class Module4_Tests {
     @Test
     public void task_4() {
         Method findMethod = null;
-        Post post = null;
+        BlogPost blogPost = null;
         try {
             findMethod = PostRepository.class.getMethod("findById", Long.class);
-            post = (Post) findMethod.invoke(spyRepository, 1l);
+            blogPost = (BlogPost) findMethod.invoke(spyRepository, 1l);
         } catch (Exception e) {
             //e.printStackTrace();
         }
         String message = "Task 4: The method `findById()` does not exist in the PostRepository class.";
         assertNotNull(message, findMethod);
 
-        List<Post> posts = spyRepository.findAll();
+        List<BlogPost> blogPosts = spyRepository.findAll();
         message = "Task 4: The method `findAll()` does not exist in the PostRepository class.";
-        assertNotNull(message, posts);
+        assertNotNull(message, blogPosts);
 
-        Post tempPost = null;
+        BlogPost tempBlogPost = null;
         try {
-            for (Post p : posts) {
+            for (BlogPost p : blogPosts) {
                 if (p.getId() == 1)
-                    tempPost = p;
+                    tempBlogPost = p;
             }
         } catch (Exception e) {
             //e.printStackTrace();
         }
 
         message = "Task 4: The method `findById()` does not return the correct Post.";
-        assertEquals(message, tempPost, post);
+        assertEquals(message, tempBlogPost, blogPost);
 
     }
 
@@ -238,9 +237,9 @@ public class Module4_Tests {
     }
 
     public void do_task_5() {
-        Mockito.when(spyRepository.findById(1l)).thenReturn(ALL_POSTS.get(0));
+        Mockito.when(spyRepository.findById(1l)).thenReturn(ALL_Blog_POSTS.get(0));
         ModelMap modelMap = Mockito.mock(ModelMap.class);
-        Mockito.when(modelMap.put("post", ALL_POSTS.get(0))).thenReturn(null);
+        Mockito.when(modelMap.put("post", ALL_Blog_POSTS.get(0))).thenReturn(null);
 
         try {
             // Call postDetails() if found
@@ -262,9 +261,9 @@ public class Module4_Tests {
     }
 
     public void do_task_6() {
-        Mockito.when(spyRepository.findById(1l)).thenReturn(ALL_POSTS.get(0));
+        Mockito.when(spyRepository.findById(1l)).thenReturn(ALL_Blog_POSTS.get(0));
         ModelMap modelMap = Mockito.mock(ModelMap.class);
-        Mockito.when(modelMap.put("post", ALL_POSTS.get(0))).thenReturn(null);
+        Mockito.when(modelMap.put("post", ALL_Blog_POSTS.get(0))).thenReturn(null);
 
         try {
             // Call postDetails() if found
@@ -275,7 +274,7 @@ public class Module4_Tests {
 
         boolean calledPut = false;
         try {
-            Mockito.verify(modelMap).put("post", ALL_POSTS.get(0));
+            Mockito.verify(modelMap).put("post", ALL_Blog_POSTS.get(0));
             calledPut = true;
         } catch (Error e) {
             //e.printStackTrace();
@@ -320,9 +319,9 @@ public class Module4_Tests {
         h3Elem = h3Elements.get(1);
         assertNotNull("Task 7: The template doesn't have a second `<h3>` tag.", h3Elem);
 
-        h3CorrectText = h3Elem.text().contains(ALL_POSTS.get(0).getDateStr());
+        h3CorrectText = h3Elem.text().contains(ALL_Blog_POSTS.get(0).getDateStr());
 
-        message = "Task 7: The first post's second `<h3>` tag should display" + ALL_POSTS.get(0).getDateStr() + " as the date.";
+        message = "Task 7: The first post's second `<h3>` tag should display" + ALL_Blog_POSTS.get(0).getDateStr() + " as the date.";
         assertTrue(message, h3CorrectText);
 
     }
@@ -355,9 +354,9 @@ public class Module4_Tests {
                 divElements.size() == 1);
 
 
-        message = "Task 8: The Post's Body isn't displayed. It should be - " + ALL_POSTS.get(0).getBody() +
+        message = "Task 8: The Post's Body isn't displayed. It should be - " + ALL_Blog_POSTS.get(0).getBody() +
                 " - instead it is - " + divElements.get(0).html() + ".";
-        assertEquals(message, ALL_POSTS.get(0).getBody(), divElements.get(0).html());
+        assertEquals(message, ALL_Blog_POSTS.get(0).getBody(), divElements.get(0).html());
 
 
     }

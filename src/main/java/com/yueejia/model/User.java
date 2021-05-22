@@ -27,7 +27,7 @@ public class User {
     private String avatar;
     private Date lastLogin;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Post> post = new ArrayList<Post>();
+    private List<BlogPost> blogPost = new ArrayList<BlogPost>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL)

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class Post {
+public class BlogPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +26,7 @@ public class Post {
     private String body;
     @ManyToOne
     private User user;
-    private Date date;
+    private ZonedDateTime zonedDateTime;
     private String img;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
@@ -33,7 +34,7 @@ public class Post {
 
     public String getDateStr() {
         DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
-        return outputFormatter.format(this.date);
+        return outputFormatter.format(this.zonedDateTime);
     }
 
 

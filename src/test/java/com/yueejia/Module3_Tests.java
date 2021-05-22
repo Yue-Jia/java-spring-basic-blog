@@ -1,6 +1,6 @@
 package com.yueejia;
 
-import com.yueejia.model.Post;
+import com.yueejia.model.BlogPost;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -36,13 +35,13 @@ public class Module3_Tests {
 //    @Autowired
 //    private BlogController blogController;
 
-    private List<Post> ALL_POSTS;
+    private List<BlogPost> ALL_Blog_POSTS;
     private Document doc = null;
     String errorInfo = "";
 
     @Before
     public void setup() {
-        ALL_POSTS = new ArrayList<>(Arrays.asList(
+        ALL_Blog_POSTS = new ArrayList<>(Arrays.asList(
 //                new Post(1l, "Earbuds",
 //                        "You have got to try these in your ears. So tiny and can even block the sounds of screaming toddlers if you so desire.",
 //                        "You have got to try these in your ears. So tiny and can even block the sounds of screaming toddlers if you so desire.",
@@ -177,8 +176,8 @@ public class Module3_Tests {
                 divElements.size() > 0);
 
         // Task 8 - Verify <div class="card-body"> shows up 5 times
-        message = "Task 2: The `<div>` tag with class `\"card-body\"` should appear "+ALL_POSTS.size()+" times.";
-        assertEquals(message, ALL_POSTS.size(), divElements.size());
+        message = "Task 2: The `<div>` tag with class `\"card-body\"` should appear "+ ALL_Blog_POSTS.size()+" times.";
+        assertEquals(message, ALL_Blog_POSTS.size(), divElements.size());
     }
 
     @Test
@@ -192,12 +191,12 @@ public class Module3_Tests {
                 divElements.size() > 0);
 
         message = "Task 3: The `<div>` tag should appear 5 times total. But it only appears " + divElements.size() + " times.";
-        assertEquals(message, ALL_POSTS.size(), divElements.size());
+        assertEquals(message, ALL_Blog_POSTS.size(), divElements.size());
 
         for (int i = 0; i < divElements.size(); i++) {
             Element element = divElements.get(i);
-            message = "Task 3: The `<div class=\"card-subtext\">` tag child tag is: \"" + element.html() + "\" instead of <a href=\"/#\">" + ALL_POSTS.get(i).getUser().getName() + "</a>.";
-            assertEquals(message, "<a href=\"/#\">"+ALL_POSTS.get(i).getUser().getName()+"</a>", element.html());
+            message = "Task 3: The `<div class=\"card-subtext\">` tag child tag is: \"" + element.html() + "\" instead of <a href=\"/#\">" + ALL_Blog_POSTS.get(i).getUser().getName() + "</a>.";
+            assertEquals(message, "<a href=\"/#\">"+ ALL_Blog_POSTS.get(i).getUser().getName()+"</a>", element.html());
         }
     }
 
