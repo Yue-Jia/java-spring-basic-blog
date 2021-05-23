@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Builder
+
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Entity
 public class User {
@@ -25,11 +25,22 @@ public class User {
     private String email;
     private String password;
     private String avatar;
-    private Date lastLogin;
+    private ZonedDateTime lastLogin;
     @OneToMany(cascade = CascadeType.ALL)
     private List<BlogPost> blogPost = new ArrayList<BlogPost>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> role = new ArrayList<>();
+
+    public User(String name,String email,String password){
+        this.name = name;
+        this.email= email;
+        this.password= password;
+        this.avatar="";
+        this.blogPost=new ArrayList<BlogPost>();
+        this.comment= new ArrayList<Comment>();
+        this.lastLogin= null;
+        this.role=new ArrayList<Role>();
+    }
 }
