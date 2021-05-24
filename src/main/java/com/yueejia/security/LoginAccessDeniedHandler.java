@@ -20,7 +20,7 @@ public class LoginAccessDeniedHandler implements AccessDeniedHandler {
         // TODO Auto-generated method stub
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth !=null) {
-            System.out.print(auth.getName()+" was tring to access protected resource:"+request.getRequestURI());
+            System.out.print(auth.getName()+" was trying to access protected resource:"+request.getRequestURI());
         }
         response.sendRedirect(request.getContextPath()+"/access-denied");
     }

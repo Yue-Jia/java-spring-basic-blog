@@ -1,7 +1,7 @@
 package com.yueejia.security;
 
 import com.yueejia.data.UserRepository;
-import com.yueejia.model.User;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //   userdetail is using data base to store the securityconfig class which config method store user info
         //find the user by the username
-        com.yueejia.model.User user = userRepo.findByName(username);
+        com.yueejia.model.User user = userRepo.findByUsername(username);
         //if the user dont exist then stop
         if(user==null) {
             System.out.println("User "+username+" not found");
@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             grantList.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         //using the info above create a userDetails for spring to verify with the user logging info
-        UserDetails userDetails = (UserDetails)new User(user.getName(),user.getEmail(),user.getPassword());
+        UserDetails userDetails = (UserDetails)new User(user.getUsername(),user.getPassword(),grantList);
         return userDetails;
     }
 }

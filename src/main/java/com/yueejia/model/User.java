@@ -20,7 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String username;
     @Email
     private String email;
     private String password;
@@ -30,11 +30,11 @@ public class User {
     private List<BlogPost> blogPost = new ArrayList<BlogPost>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch= FetchType.EAGER)
     private List<Role> role = new ArrayList<>();
 
-    public User(String name,String email,String password){
-        this.name = name;
+    public User(String username,String email,String password){
+        this.username = username;
         this.email= email;
         this.password= password;
         this.avatar="";

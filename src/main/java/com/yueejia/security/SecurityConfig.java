@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/owner/ownerLogin")
-                .permitAll()
+                .permitAll().defaultSuccessUrl("/owner/goAddPost")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)

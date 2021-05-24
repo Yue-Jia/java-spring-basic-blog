@@ -195,8 +195,8 @@ public class Module3_Tests {
 
         for (int i = 0; i < divElements.size(); i++) {
             Element element = divElements.get(i);
-            message = "Task 3: The `<div class=\"card-subtext\">` tag child tag is: \"" + element.html() + "\" instead of <a href=\"/#\">" + ALL_Blog_POSTS.get(i).getUser().getName() + "</a>.";
-            assertEquals(message, "<a href=\"/#\">"+ ALL_Blog_POSTS.get(i).getUser().getName()+"</a>", element.html());
+            message = "Task 3: The `<div class=\"card-subtext\">` tag child tag is: \"" + element.html() + "\" instead of <a href=\"/#\">" + ALL_Blog_POSTS.get(i).getUser().getUsername() + "</a>.";
+            assertEquals(message, "<a href=\"/#\">"+ ALL_Blog_POSTS.get(i).getUser().getUsername()+"</a>", element.html());
         }
     }
 

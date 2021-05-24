@@ -58,7 +58,7 @@ public class BlogController {
         BlogPost newBlogPost = blogPost;
         newBlogPost.setZonedDateTime(ZonedDateTime.now(ZoneId.of( "America/Montreal" )) );
         newBlogPost.setImg("abc");
-        newBlogPost.setUser(userRepository.findById(Long.valueOf(1)));
+        newBlogPost.setUser(userRepository.findById(new Long(1)).get());
         postRepository.save(newBlogPost);
         model.addAttribute("blogPost", new BlogPost());
         return "client/listPost";
