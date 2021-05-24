@@ -28,7 +28,7 @@ public class BlogPost {
     private User user;
     private ZonedDateTime zonedDateTime;
     private String img;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Comment> comment = new ArrayList<>();
 
 

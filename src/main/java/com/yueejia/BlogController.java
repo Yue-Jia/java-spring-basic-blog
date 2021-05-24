@@ -5,6 +5,8 @@ import com.yueejia.data.UserRepository;
 import com.yueejia.model.BlogPost;
 import com.yueejia.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -35,7 +35,9 @@ public class BlogController {
         return "client/home";
     }
     @GetMapping("/listP")
-    public String goListP(){
+    public String goListP(Model model){
+        List<BlogPost> posts =postRepository.findAll();
+        model.addAttribute("blogPosts",posts);
         return "client/listPost";
     }
     @GetMapping("/owner/ownerLogin")
@@ -55,12 +57,13 @@ public class BlogController {
     }
     @PostMapping("/owner/createPost")
     public String createPost(@ModelAttribute BlogPost blogPost, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         BlogPost newBlogPost = blogPost;
         newBlogPost.setZonedDateTime(ZonedDateTime.now(ZoneId.of( "America/Montreal" )) );
         newBlogPost.setImg("abc");
-        newBlogPost.setUser(userRepository.findById(new Long(1)).get());
+        newBlogPost.setUser(userRepository.findByUsername(auth.getName()));
         postRepository.save(newBlogPost);
         model.addAttribute("blogPost", new BlogPost());
-        return "client/listPost";
+        return "redirect:/listP";
     }
 }
