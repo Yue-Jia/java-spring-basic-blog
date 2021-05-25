@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header :: header">...</div>
+<main role="main" class="py-5 flex-fill">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-3 order-md-12 sidebar-wrapper">
+            <div class="profile-container">
+                <img class="rounded-circle profile img-fluid" th:src="@{/images/Me.jpg}" alt="Yue Jia" width="150px"/>
+                <h1 class="name">Yue Jia</h1>
+                <h3 class="tagline">Web Developer</h3>
+            </div><!--//profile-container-->
+
+            <div class="contact-container container-block">
+                <ul class="list-unstyled contact-list">
+                    <li class="email"><i class="fas fa-envelope"></i><a href="mailto: jiayu@sheridancollege.ca">&nbsp;jiayu@sheridancollege.ca</a></li>
+                    <li class="linkedin"><i class="fab fa-linkedin-in"></i><a href="https://www.linkedin.com/in/jia-yue" target="_blank">&nbsp;linkedin.com/in/jia-yue</a></li>
+                    <li class="github"><i class="fab fa-github"></i><a href="https://github.com/Yue-Jia" target="_blank">&nbsp;github.com/Yue-Jia</a></li>
+                    </ul>
+            </div><!--//contact-container-->
+            <div class="education-container container-block">
+                <h2 class="container-block-title">Education</h2>
+                <div class="item">
+                    <h4 class="degree">Advanced Diploma in <br> Software Development & Network Engineering</h4>
+                    <h5 class="meta">Sheridan College</h5>
+                    <div class="time">2017 - 2021</div>
+                </div><!--//item-->
+                <div class="item">
+                    <h4 class="degree">BSc in Applied Physics</h4>
+                    <h5 class="meta">Beijing Institute of Technology</h5>
+                </div><!--//item-->
+            </div><!--//education-container-->
+
+            <div class="languages-container container-block">
+                <h2 class="container-block-title">Languages</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>English <span class="lang-desc">(Fluent)</span></li>
+                    <li>Mandarin <span class="lang-desc">(Mother Tongue)</span></li>
+                    <li>French <span class="lang-desc">(Advanced)</span></li>
+                </ul>
+            </div><!--//interests-->
+
+            <div class="interests-container container-block">
+                <h2 class="container-block-title">Interests</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>Jogging</li>
+                    <li>Sketch</li>
+                    <li>Video Game</li>
+                </ul>
+            </div><!--//interests-->
+
+        </div><!--//sidebar-wrapper-->
+
+        <div class="col-md-9 order-md-1 main-wrapper">
+
+            <section class="section summary-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Career Profile</h2>
+                <div class="summary">
+                    <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. You can <a href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/orbit-free-resume-cv-bootstrap-theme-for-developers/" target="_blank">download this free resume/CV template here</a>. Aenean commodo ligula eget dolor aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.</p>
+                </div><!--//summary-->
+            </section><!--//section-->
+
+            <section class="section experiences-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-briefcase"></i></span>Experiences</h2>
+
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">Junior Developer (co-op)</h3>
+                            <div class="time">AUG 2019 – DEC 2019</div>
+                        </div><!--//upper-row-->
+                        <div class="company">MERIDIAN CREDIT UNION (ST. CATHARINES)</div>
+                    </div><!--//meta-->
+                    <div class="details">
+                        <p>Responsible for creating automation code by using C# Selenium, Appium for QA to do the testing.
+                            (Language used: C#)</p>
+                        <p>Added MVC codes in another project and added web elements and functions for the front end. (C#,
+                            Angular) </p>
+                    </div><!--//details-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">Junior Programmer (co-op)</h3>
+                            <div class="time">JAN 2019 – APR 2019</div>
+                        </div><!--//upper-row-->
+                        <div class="company">SHERIDAN SCREEN INDUSTRIES RESEARCH AND TRAINING
+                            CENTER (TORONTO)</div>
+                    </div><!--//meta-->
+                    <div class="details">
+                        <p>Developed a Speech-to-Speech app which can communicate with people by using Microsoft Azure
+                            Cognitive Speech Service API. (Language used: C++)
+                            Developed an app for the automation of Photoshop and Maya for the batch generation of different
+                            images. (Language used: Python)</p>
+                    </div><!--//details-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">UI Developer</h3>
+                            <div class="time">2016 - 2018</div>
+                        </div><!--//upper-row-->
+                        <div class="company">Amazon, London</div>
+                    </div><!--//meta-->
+                    <div class="details">
+                        <p>Describe your role here lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
+                    </div><!--//details-->
+                </div><!--//item-->
+
+            </section><!--//section-->
+
+            <section class="section projects-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-archive"></i></span>Projects</h2>
+                <div class="intro">
+                    <p>You can list your side projects or open source libraries in this section. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.</p>
+                </div><!--//intro-->
+                <div class="item">
+                    <span class="project-title"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/coderpro-bootstrap-4-startup-template-for-software-projects/" target="_blank">CoderPro</a></span> - <span class="project-tagline">A responsive website template designed to help developers launch their software projects. </span>
+
+                </div><!--//item-->
+                <div class="item">
+                    <span class="project-title"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/launch-bootstrap-4-template-for-saas-businesses/" target="_blank">Launch</a></span> - <span class="project-tagline">A responsive website template designed to help startups promote their products or services.</span>
+                </div><!--//item-->
+                <div class="item">
+                    <span class="project-title"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/devcard-bootstrap-4-vcard-portfolio-template-for-software-developers/" target="_blank">DevCard</a></span> - <span class="project-tagline">A portfolio website template designed for software developers.</span>
+                </div><!--//item-->
+                <div class="item">
+                    <span class="project-title"><a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/bootstrap-template-for-mobile-apps-nova-pro/" target="_blank">Nova Pro</a></span> - <span class="project-tagline">A responsive Bootstrap theme designed to help app developers promote their mobile apps</span>
+                </div><!--//item-->
+                <div class="item">
+                    <span class="project-title"><a href="http://themes.3rdwavemedia.com/website-templates/responsive-bootstrap-theme-web-development-agencies-devstudio/" target="_blank">DevStudio</a></span> -
+                    <span class="project-tagline">A responsive website template designed to help web developers/designers market their services. </span>
+                </div><!--//item-->
+            </section><!--//section-->
+
+            <section class="skills-section section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-rocket"></i></span>Skills &amp; Proficiency</h2>
+                <div class="skillset">
+                    <div class="item">
+                        <h3 class="level-title">Java &amp; Spring boot</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 99%" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">Javascript &amp; jQuery</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 98%" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">Angular</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 98%" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">HTML5 &amp; CSS</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">C# &amp; ASP.NET CORE</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">Sketch &amp; Photoshop</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                </div>
+            </section><!--//skills-section-->
+
+        </div><!--//main-body-->
+    </div>
+
+    </div>
+</main>
+<div th:replace="footer :: footer">...</div>
+
+<script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

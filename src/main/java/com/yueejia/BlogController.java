@@ -40,6 +40,17 @@ public class BlogController {
         model.addAttribute("blogPosts",posts);
         return "client/listPost";
     }
+    @GetMapping("/aboutMe")
+    public String goAboutMe(){
+        return "client/aboutMe";
+    }
+    @GetMapping("/myWork")
+    public String goMyWork(){
+        return "client/myWork";
+    }
+
+
+
     @GetMapping("/owner/ownerLogin")
     public String goOwnerLogin(){
         return "owner/ownerLogin";
