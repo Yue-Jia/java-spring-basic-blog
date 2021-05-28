@@ -21,6 +21,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    private String name;
     @Email
     private String email;
     private String password;
@@ -33,14 +34,5 @@ public class User {
     @ManyToMany(fetch= FetchType.EAGER)
     private List<Role> role = new ArrayList<>();
 
-    public User(String username,String email,String password){
-        this.username = username;
-        this.email= email;
-        this.password= password;
-        this.avatar="";
-        this.blogPost=new ArrayList<BlogPost>();
-        this.comment= new ArrayList<Comment>();
-        this.lastLogin= null;
-        this.role=new ArrayList<Role>();
-    }
+
 }

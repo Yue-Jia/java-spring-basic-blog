@@ -40,6 +40,13 @@ public class BlogController {
         model.addAttribute("blogPosts",posts);
         return "client/listPost";
     }
+
+    @GetMapping("/postDetails/{id}")
+    public String goPostDetails(@PathVariable Long id, Model model){
+        BlogPost bp= postRepository.findById(id);
+        model.addAttribute("blogPost",bp);
+        return "client/post-details";
+    }
     @GetMapping("/aboutMe")
     public String goAboutMe(){
         return "client/aboutMe";

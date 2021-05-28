@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class BlogPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Lob
     private String body;
     @ManyToOne
     private User user;
@@ -34,7 +36,8 @@ public class BlogPost {
 
     public String getDateStr() {
         DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
-        return outputFormatter.format(this.zonedDateTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss ");
+        return formatter.format(this.zonedDateTime);
     }
 
 

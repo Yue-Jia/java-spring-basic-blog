@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
 </head>
 
@@ -24,10 +26,16 @@
         </div>
 
         <div class="row py-3">
-            <div class="col-sm-12 blogPost-heading">
+            <div class="col-sm-6 blogPost-heading">
                 <h1 class="blogPost-title" th:text="${blogPost.getTitle()}"></h1>
-                <h3 class="blogPost-subtitle" th:text="${blogPost.getAuthor()}"></h3>
+                <h3 class="blogPost-subtitle" th:text="${blogPost.getUser().getName()}"></h3>
                 <h3 class="blogPost-subtitle" th:text="${blogPost.getDateStr()}"></h3>
+            </div>
+            <div class="col-sm-6">
+            <div sec:authorize="hasRole('OWNER')">
+                <button type="button" class="btn btn-default btn-sm"><i class='fas fa-trash-alt fa-2x'></i><br/>
+                </button>
+            </div>
             </div>
         </div>
 
@@ -35,24 +43,129 @@
             <div class="col-md-8 blogPost-body" th:utext="${blogPost.getBody()}">
 
             </div>
-            <aside class="col-md-4 pl-5">
-                <div class="py-3 mb-3 bg-white rounded">
-                    <div class="card-title">About the Author</div>
-                    <img class="card-img-top"  src="https://randomuser.me/api/portraits/lego/9.jpg" alt="${blogPost.getAuthor()}">
-                    <div class="card-body py-4">
-                        <p class="card-author-bio">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                        <a href="#" class=""><div class="card-author-link">Read More</div></a>
-                    </div>
-                </div>
+            <aside class="col-md-4 ">
+<!--                <div class="bg-light rounded">-->
+                    <!--                    <div class="card-title">About the Author</div>-->
+                    <!--                    <img class="card-img-top"  src="https://randomuser.me/api/portraits/lego/9.jpg" alt="${blogPost.getAuthor()}">-->
+                    <!--                    <div class="card-body py-4">-->
+                    <!--                        <p class="card-author-bio">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>-->
+                    <!--                        <a href="#" class=""><div class="card-author-link">Read More</div></a>-->
+                    <!--                    </div>-->
+
+<!--                    <div class="container">-->
+                        <div class="be-comment-block">
+                            <h1 class="comments-title">Comments (3)</h1>
+                            <div class="be-comment">
+                                <div class="be-img-comment">
+                                    <a href="blog-detail-2.html">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                             class="be-ava-comment">
+                                    </a>
+                                </div>
+                                <div class="be-comment-content">
+
+				                <span class="be-comment-name">
+					                <a href="blog-detail-2.html">Ravi Sah</a>
+					            </span>
+                                    <span class="be-comment-time">
+					                    <i class="fa fa-clock-o"></i>
+					                    May 27, 2015 at 3:14am
+				                    </span>
+
+                                    <p class="be-comment-text">
+                                        Pellentesque gravida tristique ultrices.
+                                        Sed blandit varius mauris, vel volutpat urna hendrerit id.
+                                        Curabitur rutrum dolor gravida turpis tristique efficitur.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="be-comment">
+                                <div class="be-img-comment">
+                                    <a href="blog-detail-2.html">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""
+                                             class="be-ava-comment">
+                                    </a>
+                                </div>
+                                <div class="be-comment-content">
+			<span class="be-comment-name">
+				<a href="blog-detail-2.html">Phoenix, the Creative Studio</a>
+			</span>
+                                    <span class="be-comment-time">
+				<i class="fa fa-clock-o"></i>
+				May 27, 2015 at 3:14am
+			</span>
+                                    <p class="be-comment-text">
+                                        Nunc ornare sed dolor sed mattis. In scelerisque dui a arcu mattis, at maximus
+                                        eros commodo. Cras magna nunc, cursus lobortis luctus at, sollicitudin vel
+                                        neque. Duis eleifend lorem non ant. Proin ut ornare lectus, vel eleifend est.
+                                        Fusce hendrerit dui in turpis tristique blandit.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="be-comment">
+                                <div class="be-img-comment">
+                                    <a href="blog-detail-2.html">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""
+                                             class="be-ava-comment">
+                                    </a>
+                                </div>
+                                <div class="be-comment-content">
+			<span class="be-comment-name">
+				<a href="blog-detail-2.html">Cüneyt ŞEN</a>
+			</span>
+                                    <span class="be-comment-time">
+				<i class="fa fa-clock-o"></i>
+				May 27, 2015 at 3:14am
+			</span>
+                                    <p class="be-comment-text">
+                                        Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis
+                                        eleifend lorem non ant
+                                    </p>
+                                </div>
+                            </div>
+                            <form class="form-block">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group fl_icon">
+                                            <div class="icon"><i class="fa fa-user"></i></div>
+                                            <input class="form-input" type="text" placeholder="Your name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12  fl_icon">
+                                        <div class="form-group fl_icon">
+                                            <div class="icon"><i class="fa fa-envelope-o"></i></div>
+                                            <input class="form-input" type="text" placeholder="Your email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea class="form-input" required="" placeholder="Your text"></textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <a class="btn btn-primary pull-right">submit</a>
+                                </div>
+                            </form>
+                        </div>
+<!--                    </div>-->
+
+
+<!--                </div>-->
             </aside>
         </div>
     </div>
 </main>
 <div th:replace="footer :: footer">...</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script src="js/vendor/jquery-slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
