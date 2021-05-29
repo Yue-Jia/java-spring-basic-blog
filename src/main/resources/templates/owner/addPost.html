@@ -9,6 +9,8 @@
     <title>Title</title>
 </head>
 <body>
+<div id="page-container">
+    <div id="content-wrap">
 <div th:replace="header :: header">...</div>
 <main role="main" class="py-5 flex-fill">
 
@@ -30,14 +32,16 @@
                             <hr>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
-                        <a th:href="@{/logout}">Logout</a>
+
                     </div>
                 </div>
             </div>
 
 </main>
+    </div>
 <div th:replace="footer :: footer">...</div>
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+</div>
+<script src="https://cdn.tiny.cloud/1/myoonhzpzpnrh4elbf6tng2pz68e7kzfs3hn5i23am12flyx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
             selector:'#editor',

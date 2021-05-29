@@ -4,17 +4,34 @@ body {
    background-color: white;
   }
 
-
+/*
 footer {
    position: relative;
    bottom: 0;
    width: 100%;
+  }*/
+
+  #page-container {
+    position: relative;
+    min-height: 100vh;
   }
+
+  #content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+  }
+
 #homp {
    position: absolute;
    top:0%;
-   left:35%;
-   right:35%;
+   left:43%;
+   right:43%;
    }
 .form-control[readonly] {
     background-color: white;
@@ -34,7 +51,7 @@ footer {
     font-family: GothamBook;
     src: url(../fonts/GothamBook.otf);
 }
-
+/*
 @media (min-width: 1200px) {
 .container {
         max-width: 73%;
@@ -42,7 +59,7 @@ footer {
 .card-columns {
     column-gap: 3rem;
 }
-}
+}*/
 
   .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 

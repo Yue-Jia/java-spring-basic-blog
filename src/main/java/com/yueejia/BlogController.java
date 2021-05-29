@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -55,7 +56,17 @@ public class BlogController {
     public String goMyWork(){
         return "client/myWork";
     }
-
+    @GetMapping("/owner/editing")
+    public String goEditing(Model model){
+        List<BlogPost> posts =postRepository.findAll();
+        model.addAttribute("blogPosts",posts);
+        List<Integer> commentCounts = new ArrayList<>();
+        for(BlogPost ep:posts){
+            commentCounts.add(ep.getComment().size());
+        }
+        model.addAttribute("commentCounts",commentCounts);
+        return "owner/editing";
+    }
 
 
     @GetMapping("/owner/ownerLogin")

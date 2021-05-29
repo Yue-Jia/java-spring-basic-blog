@@ -13,6 +13,8 @@
 </head>
 
 <body>
+<div id="page-container">
+    <div id="content-wrap">
 <div th:replace="header :: header">...</div>
 
 <main role="main" class="py-5 flex-fill">
@@ -26,17 +28,12 @@
         </div>
 
         <div class="row py-3">
-            <div class="col-sm-6 blogPost-heading">
+            <div class="blogPost-heading">
                 <h1 class="blogPost-title" th:text="${blogPost.getTitle()}"></h1>
                 <h3 class="blogPost-subtitle" th:text="${blogPost.getUser().getName()}"></h3>
                 <h3 class="blogPost-subtitle" th:text="${blogPost.getDateStr()}"></h3>
             </div>
-            <div class="col-sm-6">
-            <div sec:authorize="hasRole('OWNER')">
-                <button type="button" class="btn btn-default btn-sm"><i class='fas fa-trash-alt fa-2x'></i><br/>
-                </button>
-            </div>
-            </div>
+
         </div>
 
         <div class="row py-3">
@@ -123,7 +120,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <form class="form-block">
+                            <form class="form-block" sec:authorize="hasRole('OAUTH')">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group fl_icon">
@@ -143,7 +140,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <a class="btn btn-primary pull-right">submit</a>
+                                    <a class="btn btn-primary col-md-3 order-md-12">submit</a>
                                 </div>
                             </form>
                         </div>
@@ -155,7 +152,9 @@
         </div>
     </div>
 </main>
+    </div>
 <div th:replace="footer :: footer">...</div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

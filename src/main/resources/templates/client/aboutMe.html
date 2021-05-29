@@ -9,11 +9,13 @@
     <title>Title</title>
 </head>
 <body>
+<div id="page-container">
+    <div id="content-wrap">
 <div th:replace="header :: header">...</div>
 <main role="main" class="py-5 flex-fill">
     <div class="container">
         <div class="row">
-        <div class="col-md-3 order-md-12 sidebar-wrapper">
+        <div class="col-lg-3 order-lg-12 sidebar-wrapper">
             <div class="profile-container">
                 <img class="rounded-circle profile img-fluid" th:src="@{/images/Me.jpg}" alt="Yue Jia" width="150px"/>
                 <h1 class="name">Yue Jia</h1>
@@ -22,10 +24,10 @@
 
             <div class="contact-container container-block">
                 <ul class="list-unstyled contact-list">
-                    <li class="email"><i class="fas fa-envelope"></i><a href="mailto: jiayu@sheridancollege.ca">&nbsp;jiayu@sheridancollege.ca</a></li>
+                    <li class="email"><i class="fas fa-envelope"></i><a href="mailto: jiayu@sheridancollege.ca" >&nbsp;jiayu@sheridancollege.ca</a></li>
                     <li class="linkedin"><i class="fab fa-linkedin-in"></i><a href="https://www.linkedin.com/in/jia-yue" target="_blank">&nbsp;linkedin.com/in/jia-yue</a></li>
                     <li class="github"><i class="fab fa-github"></i><a href="https://github.com/Yue-Jia" target="_blank">&nbsp;github.com/Yue-Jia</a></li>
-                    </ul>
+                </ul>
             </div><!--//contact-container-->
             <div class="education-container container-block">
                 <h2 class="container-block-title">Education</h2>
@@ -60,7 +62,7 @@
 
         </div><!--//sidebar-wrapper-->
 
-        <div class="col-md-9 order-md-1 main-wrapper">
+        <div class="col-lg-9 order-lg-1 main-wrapper">
 
             <section class="section summary-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Career Profile</h2>
@@ -193,8 +195,9 @@
 
     </div>
 </main>
+    </div>
 <div th:replace="footer :: footer">...</div>
-
+    </div>
 <script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
