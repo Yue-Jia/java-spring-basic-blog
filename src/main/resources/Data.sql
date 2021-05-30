@@ -1,6 +1,6 @@
 
-insert into User (username,name,email, password)
-values ('EliDgia','yue','yuejia070@gmail.com', '$2a$10$TjUCwf/8bJlxrhOTykjUqO36c8lMy9pgLKHqcnh1S3pZ.q4PxxTwu');
+insert into User (username,name,email, password,enabled)
+values ('EliDgia','yue','jiayu@sheridancollege.ca', '$2a$10$TjUCwf/8bJlxrhOTykjUqO36c8lMy9pgLKHqcnh1S3pZ.q4PxxTwu',true);
 
 
 

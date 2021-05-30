@@ -46,6 +46,7 @@ public class BlogController {
     public String goPostDetails(@PathVariable Long id, Model model){
         BlogPost bp= postRepository.findById(id);
         model.addAttribute("blogPost",bp);
+        model.addAttribute("comments",bp.getComment());
         return "client/post-details";
     }
     @GetMapping("/aboutMe")

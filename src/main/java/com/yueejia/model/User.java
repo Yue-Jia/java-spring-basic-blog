@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +25,10 @@ public class User {
     private Long id;
     private String username;
     private String name;
+    private boolean enabled = true;
+    private String verification_code;
+    @Enumerated(EnumType.STRING)
+    private AuthenticationProvider auth_provider;
     @Email
     private String email;
     private String password;
@@ -34,5 +41,9 @@ public class User {
     @ManyToMany(fetch= FetchType.EAGER)
     private List<Role> role = new ArrayList<>();
 
-
+    public String getLastLoginStr() {
+        DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss ");
+        return formatter.format(this.lastLogin);
+    }
 }

@@ -25,21 +25,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.authorizeRequests()
+                .antMatchers("/oauth2/**").permitAll()
                 .antMatchers("/client/**").hasRole("CLIENT")
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .antMatchers("/","/static/**").permitAll()
                 .antMatchers("/owner/**").authenticated()
-//                .antMatchers("/oauth_login")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .oauth2Login()
-//                .loginPage("/oauth_login")
                 .and()
                 .formLogin()
                 .loginPage("/owner/ownerLogin")
                 .permitAll().defaultSuccessUrl("/owner/goAddPost")
+                .and()
+                .oauth2Login()
+                .loginPage("/client/post-details")
+                .userInfoEndpoint().userService(oAuth2UserService)
+                .and()
+                .successHandler(oAuth2LoginSuccessHandler)
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
@@ -55,6 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
+    @Autowired
+    private CustomOAuth2UserService oAuth2UserService;
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 }
 
