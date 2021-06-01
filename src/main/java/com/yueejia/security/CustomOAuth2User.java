@@ -43,4 +43,7 @@ public class CustomOAuth2User implements OAuth2User {
     public String getLoginTime(){
         return oAuth2User.getAttribute("iat");
     }
+    public String getUsername(){
+        return oAuth2User.getAttribute("sub");
+    }
 }

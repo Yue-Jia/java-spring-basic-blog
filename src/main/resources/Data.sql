@@ -1,6 +1,6 @@
 
-insert into User (username,name,email, password,enabled)
-values ('EliDgia','yue','jiayu@sheridancollege.ca', '$2a$10$TjUCwf/8bJlxrhOTykjUqO36c8lMy9pgLKHqcnh1S3pZ.q4PxxTwu',true);
+insert into User (username,name,avatar,email, password,enabled)
+values ('EliDgia','yue','/images/Me.jpg','jiayu@sheridancollege.ca', '$2a$10$TjUCwf/8bJlxrhOTykjUqO36c8lMy9pgLKHqcnh1S3pZ.q4PxxTwu',true);
 
 
 

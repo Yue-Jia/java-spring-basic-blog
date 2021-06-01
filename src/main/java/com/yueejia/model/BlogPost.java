@@ -26,11 +26,11 @@ public class BlogPost {
     private String title;
     @Lob
     private String body;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private ZonedDateTime zonedDateTime;
     private String img;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
 
 

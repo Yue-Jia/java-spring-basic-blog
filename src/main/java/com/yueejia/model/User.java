@@ -34,9 +34,9 @@ public class User {
     private String password;
     private String avatar;
     private ZonedDateTime lastLogin;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BlogPost> blogPost = new ArrayList<BlogPost>();
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
     @ManyToMany(fetch= FetchType.EAGER)
     private List<Role> role = new ArrayList<>();

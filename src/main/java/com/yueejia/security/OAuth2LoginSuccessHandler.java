@@ -36,8 +36,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             usr.setAvatar(oAuth2User.getImageUrl());
             usr.setEmail(email);
             usr.getRole().add(role);
-            usr.setName(oAuth2User.getGivenName());
-            usr.setUsername(oAuth2User.getName());
+            usr.setName(oAuth2User.getName());
+            usr.setUsername(oAuth2User.getUsername());
             usr.setLastLogin(zdt);
             userRepository.save(usr);
         }else{

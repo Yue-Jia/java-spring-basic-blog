@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.authorizeRequests()
                 .antMatchers("/oauth2/**").permitAll()
-                .antMatchers("/client/**").hasRole("CLIENT")
+                .antMatchers("/client/**").permitAll()
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .antMatchers("/","/static/**").permitAll()
                 .antMatchers("/owner/**").authenticated()
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/client/post-details")
                 .userInfoEndpoint().userService(oAuth2UserService)
                 .and()
-                .successHandler(oAuth2LoginSuccessHandler)
+                .successHandler(oAuth2LoginSuccessHandler)//.defaultSuccessUrl("/client/post-details")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)

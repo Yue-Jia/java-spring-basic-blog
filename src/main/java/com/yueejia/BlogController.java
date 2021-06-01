@@ -1,19 +1,21 @@
 package com.yueejia;
 
+import com.yueejia.data.CommentRepository;
 import com.yueejia.data.PostRepository;
 import com.yueejia.data.UserRepository;
 import com.yueejia.model.BlogPost;
+import com.yueejia.model.Comment;
 import com.yueejia.model.User;
+import com.yueejia.security.CustomOAuth2User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class BlogController {
     private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     public BlogController(PostRepository pr){
         postRepository = pr;
@@ -47,6 +51,7 @@ public class BlogController {
         BlogPost bp= postRepository.findById(id);
         model.addAttribute("blogPost",bp);
         model.addAttribute("comments",bp.getComment());
+        model.addAttribute("comment123",new Comment());
         return "client/post-details";
     }
     @GetMapping("/aboutMe")
@@ -89,11 +94,39 @@ public class BlogController {
     public String createPost(@ModelAttribute BlogPost blogPost, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         BlogPost newBlogPost = blogPost;
+        User usr = userRepository.findByUsername(auth.getName());
         newBlogPost.setZonedDateTime(ZonedDateTime.now(ZoneId.of( "America/Montreal" )) );
         newBlogPost.setImg("abc");
-        newBlogPost.setUser(userRepository.findByUsername(auth.getName()));
+        newBlogPost.setUser(usr);
         postRepository.save(newBlogPost);
+        usr.getBlogPost().add(newBlogPost);
+        userRepository.save(usr);
         model.addAttribute("blogPost", new BlogPost());
         return "redirect:/listP";
+    }
+
+
+    @PostMapping("/postDetails/{id}/addComment")
+    public String addComment(@PathVariable Long id, @ModelAttribute Comment comment123, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String ctnt = comment123.getCmtContent();
+        Comment cmt = new Comment(ctnt);
+//        Comment cmt = comment123;
+        User usr = userRepository.findByUsername(auth.getName());
+        BlogPost bp = postRepository.findById(id);
+        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of( "America/Montreal" ));
+
+        cmt.setUser(usr);
+        cmt.setBlogPost(bp);
+        cmt.setZonedDateTime(zdt);
+        commentRepository.save(cmt);
+
+        usr.getComment().add(cmt);
+        userRepository.save(usr);
+
+        bp.getComment().add(cmt);
+        postRepository.save(bp);
+
+        return "redirect:/postDetails/"+id;
     }
 }
