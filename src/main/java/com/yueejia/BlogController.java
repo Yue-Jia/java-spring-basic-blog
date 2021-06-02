@@ -39,6 +39,10 @@ public class BlogController {
         model.put("posts",lp);
         return "client/home";
     }
+    @GetMapping("/logoutSuccessful")
+    public String goLogout(){
+        return "logoutSuccessful";
+    }
     @GetMapping("/listP")
     public String goListP(Model model){
         List<BlogPost> posts =postRepository.findAll();

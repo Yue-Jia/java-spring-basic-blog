@@ -27,11 +27,11 @@
             </div>
         </div>
 
-        <div class="row py-3">
+        <div class="row py-3 px-3">
             <div class="blogPost-heading">
                 <h1 class="blogPost-title" th:text="${blogPost.getTitle()}"></h1>
                 <h3 class="blogPost-subtitle" th:text="${blogPost.getUser().getName()}"></h3>
-                <h3 class="blogPost-subtitle" th:text="${blogPost.getDateStr()}"></h3>
+                <h4 class="blogPost-subtitle" th:text="${blogPost.getDateStr()}"></h4>
             </div>
 
         </div>
@@ -55,7 +55,7 @@
                             <div class="be-comment" th:each="cm:${comments}">
                                 <div class="be-img-comment">
                                     <a href="blog-detail-2.html">
-                                        <img th:src="${cm.getUser().getAvatar()}" alt=""
+                                        <img th:src="${cm.getUser().getAvatar()}" alt="avatar"
                                              class="be-ava-comment">
                                     </a>
                                 </div>
@@ -76,9 +76,9 @@
 
                             <br>
                             <div  class="row" sec:authorize="isAnonymous()" id="googlebtn">
-                                <strong class="col">Leave your comment: </strong><a class="col-auto" th:href = "@{/oauth2/authorization/google}"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>
+                                <strong class="col">Your comment: </strong><a class="col-auto" th:href = "@{/oauth2/authorization/google}"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>
                             </div>
-                            <form class="form-block"  th:action="@{/postDetails/{id}/addComment(id=${blogPost.getId()})}" th:object="${comment123}" method="post" id="ddd">
+                            <form class="form-block" sec:authorize="isAuthenticated()" th:action="@{/postDetails/{id}/addComment(id=${blogPost.getId()})}" th:object="${comment123}" method="post" id="ddd">
                                 <div class="row">
 <!--                                    <div class="col-md-12">-->
 <!--                                        <div class="form-group fl_icon">-->
@@ -97,10 +97,17 @@
                                             <textarea class="form-input" placeholder="Your text"  name="cmtContent" th:field="*{cmtContent}" form="ddd" required></textarea>
                                         </div>
                                     </div>
-                                    <br>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <a th:href="@{/logout}">Logout</a>
                                 </div>
+
+                                    <div class="row justify-content-around">
+                                        <div class="col-4">
+                                    <button type="submit" class="btn btn-primary ">Submit</button>
+                                        </div>
+                                        <div class="col-4">
+                                    <a th:href="@{/logout}"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+
                             </form>
                         </div>
 <!--                    </div>-->
