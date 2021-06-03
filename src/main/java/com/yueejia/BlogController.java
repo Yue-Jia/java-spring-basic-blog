@@ -134,27 +134,25 @@ public class BlogController {
 
 
     @PostMapping("/postDetails/{id}/addComment")
-    public String addComment(@PathVariable Long id, @ModelAttribute Comment comment123, Model model,Authentication auth){
+    public String addComment(@PathVariable Long id, @ModelAttribute Comment comment123, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userRepository.findByUsername(auth.getName());
         Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER");
         Role oauthRole = roleRepository.findByRoleName("ROLE_OAUTH");
-        if(currentUser.getRole().contains(ownerRole)||currentUser.getRole().contains(oauthRole)) {
-//            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(currentUser.getUsername());
+        if(currentUser.getRole().contains(ownerRole)||currentUser.getRole().contains(oauthRole)) { //when oauth login in myltiple browser, have issue
             String ctnt = comment123.getCmtContent();
             Comment cmt = new Comment(ctnt);
 //        Comment cmt = comment123;
             User usr = userRepository.findByUsername(auth.getName());
             BlogPost bp = postRepository.findById(id);
             ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("America/Montreal"));
-
             cmt.setUser(usr);
             cmt.setBlogPost(bp);
             cmt.setZonedDateTime(zdt);
             commentRepository.save(cmt);
-
             usr.getComment().add(cmt);
             userRepository.save(usr);
-
             bp.getComment().add(cmt);
             postRepository.save(bp);
         }else {
