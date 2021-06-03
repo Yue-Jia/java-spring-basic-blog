@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/owner/ownerLogin")
-                .permitAll().defaultSuccessUrl("/owner/goAddPost")
+                .permitAll().defaultSuccessUrl("/owner/editing")
                 .and()
                 .oauth2Login()
                 .loginPage("/client/post-details")

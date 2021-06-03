@@ -37,7 +37,7 @@
           <a th:href="@{/owner/goEdit/{id}(id=${bp.getId()})}"><i class='fas fa-edit'></i></a>
         </td>
         <td>
-          <a th:href="@{/owner/delete/{id}(id=${bp.getId()})}"><i class='fas fa-trash'></i></a>
+          <a th:href="@{/owner/delete/{id}(id=${bp.getId()})}" onclick="return confirm('Are you sure you want to delete this item')"><i class='fas fa-trash'></i></a>
         </td>
 
       </tr>

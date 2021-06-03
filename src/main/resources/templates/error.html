@@ -15,10 +15,18 @@
     <div id="content-wrap">
         <main role="main" class="py-5 flex-fill">
             <div class="container">
-                <div class="row h-100 justify-content-center align-items-center" >
-                    <h1 style="color:#A0522D; text-shadow: 3px 3px rgb(233, 150, 122);">Logout Successfully</h1>
+                    <h5 th:text = "${errormessage}" class="error"></h5>
+                    <table  class="row h-100 justify-content-center align-items-center" style="color:#A0522D; text-shadow: 1px 1px rgb(233, 150, 122);">
+                        <tr><td>Date</td><td th:text="${timestamp}"/></tr>
+                        <tr><td>Path</td><td th:text="${path}"/></tr>
+                        <tr><td>Error</td><td th:text="${error}"/></tr>
+                        <tr><td>Status</td><td th:text="${status}"/></tr>
+                        <tr><td>Message</td><td th:text="${message}"/></tr>
+                        <tr><td>Exception</td><td th:text="${exception}"/></tr>
+                        <tr><td>Trace</td><td><pre th:text="${trace}"></pre></td></tr>
+                    </table>
                 </div>
-            </div>
+
         </main>
     </div>
     <div th:replace="footer :: footer">...</div>

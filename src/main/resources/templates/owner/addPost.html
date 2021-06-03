@@ -18,7 +18,17 @@
                 <div class="row justify-content-md-center">
                     <div class="col-md-12 col-lg-8">
                         <h1 class="h2 mb-4">Post Something</h1>
+<!--                        <form th:action="@{/owner/postImgUpload}" method="post" enctype="multipart/form-data">-->
+<!--                            <div class="form-group">-->
+<!--                                <label path="file">Select the Image file</label>-->
+<!--                                <input type="file" name="file" />-->
+<!--                                <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--                            </div>-->
+<!--                        </form>-->
                         <form th:action="@{/owner/createPost}" th:object="${blogPost}" method="post" id="content">
+                            <div class="form-group">
+                                <input type="hidden" th:field="*{id}"/>
+                            </div>
 
                         <div class="form-group">
                             <label for="title">Title</label>
