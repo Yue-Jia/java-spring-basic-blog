@@ -816,3 +816,14 @@ top:4px;
     position:absolute;
     right:0px;
 }
+a+a {
+  margin-left: 15px;
+}
+.cornerB {
+  padding: .2rem .3rem;
+  position: absolute;
+  /* You may need to change top and right. They depend on padding/widht of .badge */
+  top: -10px;
+  right: -10px;
+  list-style-type:none;
+}

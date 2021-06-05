@@ -1,14 +1,9 @@
 package com.yueejia;
 
-import com.yueejia.data.CommentRepository;
-import com.yueejia.data.PostRepository;
-import com.yueejia.data.RoleRepository;
-import com.yueejia.data.UserRepository;
-import com.yueejia.model.BlogPost;
-import com.yueejia.model.Comment;
-import com.yueejia.model.Role;
-import com.yueejia.model.User;
+import com.yueejia.data.*;
+import com.yueejia.model.*;
 import com.yueejia.security.CustomOAuth2User;
+import com.yueejia.tools.ImageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +27,8 @@ import java.util.List;
 public class BlogController {
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private MyWorkRepository myWorkRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -84,6 +81,8 @@ public class BlogController {
             commentCounts.add(ep.getComment().size());
         }
         model.addAttribute("commentCounts",commentCounts);
+        List<MyWork> myWorks = myWorkRepository.findAll();
+        model.addAttribute("myWorks",myWorks);
         return "owner/editing";
     }
 
@@ -121,31 +120,16 @@ public class BlogController {
             }
 
             //check if file is empty
-            if(!file.isEmpty() && isImageSupported(file.getContentType())) {
+            if(!file.isEmpty() && ImageHandler.isImageSupported(file.getContentType())) {
                 try {
-                    File path = new File(ResourceUtils.getURL("classpath:").getPath());
-                    if(!path.exists()) {
-                        path = new File("");
-                    }
-
-                    System.out.println(path.getAbsolutePath());
-                    File upload = new File(path.getAbsolutePath(),"static/images/upload/" + auth.getName() + "/");
-                    if(!upload.exists()){
-                        upload.mkdirs();
-                    }
-                    String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-                    String filename = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf(".")) + "_" +new Date().getTime() + suffix;
-                    File serverFile = new File(upload.getAbsolutePath()+ "\\" + filename);
-                    file.transferTo(serverFile);
-                    newBlogPost.setImg("images/upload/"+auth.getName()+"/"+filename);
+                    String imgUrl = ImageHandler.imageUploader(file,auth);
+                    newBlogPost.setImg(imgUrl);
                 }catch (Exception e) {
                     //upload fail
                     e.printStackTrace();
                     model.addAttribute("errormessage", "Image upload failed.");
                 }
             }
-
-
             postRepository.save(newBlogPost);
             List<BlogPost> p = usr.getBlogPost();
             if (!p.contains(newBlogPost))
@@ -204,7 +188,7 @@ public class BlogController {
         BlogPost bp = postRepository.findById(id);
         String imgUrl = bp.getImg();
         if(imgUrl!=null)
-            removeOldImage(bp.getImg());
+            ImageHandler.removeOldImage(bp.getImg());
         List<Comment> cmts = commentRepository.findByBlogPost(bp);
         for(Comment c: cmts){
             c.getUser().getComment().remove(c);
@@ -220,26 +204,70 @@ public class BlogController {
 //        postRepository.deleteById(id); this not working 	No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call; nested exception is javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
         return "redirect:/owner/editing"; // no space between redirect: and /
     }
+    @GetMapping("/listMyWork")
+    public String goListMyWork(Model model){
+        List<MyWork> myWorks =myWorkRepository.findAll();
+        model.addAttribute("myWorks",myWorks);
+        return "client/myWork";
+    }
+    @GetMapping("/owner/goAddMyWork")
+    public String goAddMyWork(Model model){
+        model.addAttribute("myWork", new MyWork());
+        return "owner/addMyWork";
+    }
+    @PostMapping("/owner/createMyWork")
+    public String createMyWork(@RequestParam("file") MultipartFile file,@ModelAttribute MyWork myWork, Model model,Authentication auth){
+        User currentUser = userRepository.findByUsername(auth.getName());
+        Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER");
+        if(currentUser.getRole().contains(ownerRole)) {
 
-    private boolean isImageSupported(String type) {
-        String[] typeStrings = {"image/apng", "image/bmp", "image/gif", "image/x-icon", "image/jpeg", "image/png", "image/svg+xml", "image/tiff", "image/webp"};
-        for(String t:typeStrings) {
-            if(t.equalsIgnoreCase(type)) {
-                return true;
+            MyWork myWork1 = myWork;
+            //check if file is empty
+            if(!file.isEmpty() && ImageHandler.isImageSupported(file.getContentType())) {
+                try {
+                    String imgUrl = ImageHandler.imageUploader(file,auth);
+                    myWork1.setImg(imgUrl);
+                }catch (Exception e) {
+                    //upload fail
+                    e.printStackTrace();
+                    model.addAttribute("errormessage", "Image upload failed.");
+                }
             }
+            myWorkRepository.save(myWork1);
+
+
+
+            model.addAttribute("myWork", new MyWork());
+        }else {
+            model.addAttribute("errormessage","You have not be authorized to do this");
+            return "error";
         }
-        return false;
+        return "redirect:/listMyWork";
     }
 
-    public static void removeOldImage(String oldFileUrl) {
-        try {
-            File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            String oldFilePathString = path.getAbsolutePath()+ "\\static\\" + oldFileUrl.replace("/", "\\");
-            File oldFile = new File(oldFilePathString);
-            oldFile.delete();
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+    @GetMapping("/owner/editMyWork/{id}")
+    public String editMyWork(@PathVariable long id,Model model){
+        MyWork mw = myWorkRepository.findById(id);
+        model.addAttribute("myWork", mw);
+        return "owner/addMyWork";
     }
+    @GetMapping("/owner/deleteMyWork/{id}")
+    public String deleteMyWork(@PathVariable long id,Model model,Authentication auth){
+        User currentUser = userRepository.findByUsername(auth.getName());
+        Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER");
+        if(currentUser.getRole().contains(ownerRole)){
+            MyWork mw = myWorkRepository.findById(id);
+            String imgUrl = mw.getImg();
+            if(imgUrl!=null)
+                ImageHandler.removeOldImage(mw.getImg());
+            myWorkRepository.delete(mw);
+        }else {
+            model.addAttribute("errormessage","You have not be authorized to do this");
+            return "error";
+        }
+//        postRepository.deleteById(id); this not working 	No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call; nested exception is javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
+        return "redirect:/listMyWork"; // no space between redirect: and /
+    }
+
 }
 

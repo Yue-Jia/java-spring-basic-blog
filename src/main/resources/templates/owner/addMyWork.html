@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Title</title>
+</head>
+<body>
+<div id="page-container">
+  <div id="content-wrap">
+    <div th:replace="header :: header">...</div>
+    <main role="main" class="py-5 flex-fill">
+
+      <div class="container mt-4 mb-4">
+        <div class="row justify-content-md-center">
+          <div class="col-md-12 col-lg-8">
+            <h1 class="h2 mb-4">Add Your Project:</h1>
+
+
+            <form th:action="@{/owner/createMyWork}" th:object="${myWork}" method="post" id="content" enctype="multipart/form-data">
+              <div class="form-group">
+                <label path="file">Select the Image file</label>
+                <input type="file" name="file" />
+              </div>
+              <div class="form-group">
+                <input type="hidden" th:field="*{id}"/>
+              </div>
+              <div class="form-group">
+                <input type="hidden" th:field="*{img}"/>
+              </div>
+              <div class="form-group">
+                <label for="title">Project Name</label>
+                <input type="text" class="form-control" id="title" placeholder="Project Name" th:field="*{projectName}" required/>
+              </div>
+
+              <div class="form-group">
+                <label>Describe the condition in detail</label>
+                <textarea id="editor" name="editor" th:field="*{description}" form="content" ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="title">Technologies Used</label>
+                <input type="text" class="form-control" id="techUsed" placeholder="Technologies Used" th:field="*{techUsed}" required/>
+              </div>
+              <div class="form-group">
+                <label for="title">Url Link</label>
+                <input type="text" class="form-control" id="urlLink" placeholder="URL Link" th:field="*{urlLink}" required/>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <div th:replace="footer :: footer">...</div>
+</div>
+<script src="https://cdn.tiny.cloud/1/myoonhzpzpnrh4elbf6tng2pz68e7kzfs3hn5i23am12flyx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+            selector:'#editor',
+            menubar: false,
+            statusbar: false,
+            plugins: 'autoresize anchor autolink charmap code codesample directionality fullpage help hr image imagetools insertdatetime link lists media nonbreaking pagebreak preview print searchreplace table template textpattern toc visualblocks visualchars',
+            toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help fullscreen ',
+            skin: 'bootstrap',
+            toolbar_drawer: 'floating',
+            min_height: 200,
+            autoresize_bottom_margin: 16,
+            setup: (editor) => {
+                editor.on('init', () => {
+                    editor.getContainer().style.transition="border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
+                });
+                editor.on('focus', () => {
+                    editor.getContainer().style.boxShadow="0 0 0 .2rem rgba(0, 123, 255, .25)",
+                    editor.getContainer().style.borderColor="#80bdff"
+                });
+                editor.on('blur', () => {
+                    editor.getContainer().style.boxShadow="",
+                    editor.getContainer().style.borderColor=""
+                });
+            }
+        });
+</script>
+<script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
