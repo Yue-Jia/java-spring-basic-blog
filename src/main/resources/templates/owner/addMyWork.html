@@ -38,14 +38,14 @@
 
               <div class="form-group">
                 <label>Describe the condition in detail</label>
-                <textarea id="editor" name="editor" th:field="*{description}" form="content" ></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" form="content" ></textarea>
               </div>
               <div class="form-group">
                 <label for="title">Technologies Used</label>
                 <input type="text" class="form-control" id="techUsed" placeholder="Technologies Used" th:field="*{techUsed}" required/>
               </div>
               <div class="form-group">
-                <label for="title">Url Link</label>
+                <label for="title">Url Link</label><br>
                 <input type="text" class="form-control" id="urlLink" placeholder="URL Link" th:field="*{urlLink}" required/>
               </div>
               <br>
@@ -60,33 +60,7 @@
   </div>
   <div th:replace="footer :: footer">...</div>
 </div>
-<script src="https://cdn.tiny.cloud/1/myoonhzpzpnrh4elbf6tng2pz68e7kzfs3hn5i23am12flyx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-            selector:'#editor',
-            menubar: false,
-            statusbar: false,
-            plugins: 'autoresize anchor autolink charmap code codesample directionality fullpage help hr image imagetools insertdatetime link lists media nonbreaking pagebreak preview print searchreplace table template textpattern toc visualblocks visualchars',
-            toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help fullscreen ',
-            skin: 'bootstrap',
-            toolbar_drawer: 'floating',
-            min_height: 200,
-            autoresize_bottom_margin: 16,
-            setup: (editor) => {
-                editor.on('init', () => {
-                    editor.getContainer().style.transition="border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
-                });
-                editor.on('focus', () => {
-                    editor.getContainer().style.boxShadow="0 0 0 .2rem rgba(0, 123, 255, .25)",
-                    editor.getContainer().style.borderColor="#80bdff"
-                });
-                editor.on('blur', () => {
-                    editor.getContainer().style.boxShadow="",
-                    editor.getContainer().style.borderColor=""
-                });
-            }
-        });
-</script>
+
 <script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

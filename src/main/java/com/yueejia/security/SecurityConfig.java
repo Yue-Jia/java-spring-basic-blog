@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/client/**").permitAll()
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .antMatchers("/","/static/**").permitAll()
-                .antMatchers("/owner/**").authenticated()
+//                .antMatchers("/owner/**").authenticated()     //this one oauth login user can also enter because they are also authenticated
                 .and()
                 .formLogin()
                 .loginPage("/owner/ownerLogin")

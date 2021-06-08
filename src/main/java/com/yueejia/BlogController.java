@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
 import java.time.ZoneId;
@@ -36,9 +37,6 @@ public class BlogController {
     @Autowired
     private CommentRepository commentRepository;
 
-    public BlogController(PostRepository pr){
-        postRepository = pr;
-    }
     @GetMapping("/")
     public String listPosts(ModelMap model){
         List<BlogPost> lp = postRepository.findAll();
@@ -64,10 +62,7 @@ public class BlogController {
         model.addAttribute("comment123",new Comment());
         return "client/post-details";
     }
-    @GetMapping("/aboutMe")
-    public String goAboutMe(){
-        return "client/aboutMe";
-    }
+
     @GetMapping("/myWork")
     public String goMyWork(){
         return "client/myWork";
@@ -152,7 +147,7 @@ public class BlogController {
         User currentUser = userRepository.findByUsername(auth.getName());
         Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER");
         Role oauthRole = roleRepository.findByRoleName("ROLE_OAUTH");
-        if(currentUser.getRole().contains(ownerRole)||currentUser.getRole().contains(oauthRole)) { //when oauth login in myltiple browser, have issue
+        if((currentUser.getRole().contains(ownerRole)||currentUser.getRole().contains(oauthRole))&& currentUser.isEnabled()) { //when oauth login in myltiple browser, have issue
             String ctnt = comment123.getCmtContent();
             Comment cmt = new Comment(ctnt);
 //        Comment cmt = comment123;
@@ -233,10 +228,10 @@ public class BlogController {
                     model.addAttribute("errormessage", "Image upload failed.");
                 }
             }
+
+            if(myWork1.getImg().isEmpty() || myWork1.getImg()==null)
+                myWork1.setImg("/images/sideproject.jpeg");
             myWorkRepository.save(myWork1);
-
-
-
             model.addAttribute("myWork", new MyWork());
         }else {
             model.addAttribute("errormessage","You have not be authorized to do this");
@@ -268,6 +263,34 @@ public class BlogController {
 //        postRepository.deleteById(id); this not working 	No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call; nested exception is javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
         return "redirect:/listMyWork"; // no space between redirect: and /
     }
+    @GetMapping("/redirectTo/{url}")
+    public RedirectView localRedirect(@PathVariable String url) {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://"+url);
+        return redirectView;
+    }
+    @GetMapping("/owner/deleteComment/{id}")
+    public String deleteComment(@PathVariable long id,Model model,Authentication auth){
+        Long postId;
+        User currentUser = userRepository.findByUsername(auth.getName());
+        Role ownerRole = roleRepository.findByRoleName("ROLE_OWNER");
+        if(currentUser.getRole().contains(ownerRole)){
+            Comment cmt = commentRepository.findById(id);
+            User user = cmt.getUser();
+            user.getComment().remove(cmt);
+            BlogPost blogPost = cmt.getBlogPost();
+            postId = blogPost.getId();
+            blogPost.getComment().remove(cmt);
+            userRepository.save(user);
+            postRepository.save(blogPost);
+            commentRepository.delete(cmt);
+        }else {
+            model.addAttribute("errormessage","You have not be authorized to do this");
+            return "error";
+        }
+//        postRepository.deleteById(id); this not working 	No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call; nested exception is javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
 
+        return "redirect:/postDetails/"+postId;
+    }
 }
 

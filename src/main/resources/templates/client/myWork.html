@@ -23,8 +23,9 @@
                         </ul>
                         <img class="card-img-top" th:src="${entry.getImg()}" alt="MyWork Title Image"/>
                         <div class="card-body">
-                            <div class="card-title"><a th:href="@{/myWorkDetails/{id}(id=${entry.id})}" th:text="${entry.getProjectName()}"></a></div>
-                            <div class="card-subtext"><p th:text="${entry.getTechUsed()}"></p></div>
+                            <div class="card-title"><a th:href="@{/redirectTo/{url}(url=${entry.getUrlLink()})}" th:text="${entry.getProjectName()}"></a></div>
+                            <div class="card-text"><p class="card-block" th:text="${entry.getDescription()}"></p></div>
+                            <div><p th:text="${entry.getTechUsed()}" class="techused"></p></div>
                         </div>
                     </div>
                 </div>

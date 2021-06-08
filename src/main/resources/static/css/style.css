@@ -93,6 +93,13 @@ footer {
     color: #B5B5B5;
     opacity: 1;
   }
+  .techused{
+        color:#E9967A;
+    font: 12px/26px Gotham;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        text-align: center;
+}
 
   .navbar {
     background-color: #F5F5F5;
@@ -762,7 +769,10 @@ top:4px;
     font-size: 11px;
     color: #b4b7c1;
 }
-
+.form-check-label{
+    font-size: 11px;
+    color: #b4b7c1;
+}
 .be-comment-text {
     font-size: 13px;
     line-height: 18px;
@@ -826,4 +836,10 @@ a+a {
   top: -10px;
   right: -10px;
   list-style-type:none;
+}
+.deletebtn{
+padding: .2rem .3rem;
+  position: relative;
+  /* You may need to change top and right. They depend on padding/widht of .badge */
+  float:right;
 }

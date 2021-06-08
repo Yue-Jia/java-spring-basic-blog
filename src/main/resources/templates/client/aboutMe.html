@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
@@ -17,29 +17,29 @@
         <div class="row">
         <div class="col-lg-4 order-lg-12 sidebar-wrapper rounded">
             <div class="profile-container rounded">
-                <img class="rounded-circle profile img-fluid" th:src="@{/images/Me.jpg}" alt="Yue Jia" width="150px"/>
+                <img class="rounded-circle profile img-fluid" th:src="${ownerme.getAvatar()}" alt="Yue Jia" width="150px"/>
                 <h1 class="name">Yue Jia</h1>
-                <h3 class="tagline">Software Developer</h3>
+                <h3 class="tagline" th:text="${resume.title}"></h3>
             </div><!--//profile-container-->
 
             <div class="contact-container container-block">
                 <ul class="list-unstyled contact-list">
-                    <li class="email"><i class="fas fa-envelope"></i><a href="mailto: jiayu@sheridancollege.ca" >&nbsp;jiayu@sheridancollege.ca</a></li>
-                    <li class="linkedin"><i class="fab fa-linkedin-in"></i><a href="https://www.linkedin.com/in/jia-yue" target="_blank">&nbsp;linkedin.com/in/jia-yue</a></li>
-                    <li class="github"><i class="fab fa-github"></i><a href="https://github.com/Yue-Jia" target="_blank">&nbsp;github.com/Yue-Jia</a></li>
+                    <li class="email"><i class="fas fa-envelope"></i><a th:href="'mailto:'+${resume.getEmail()}" th:text="'&nbsp;'+${resume.getEmail()}"></a></li>
+                    <li class="linkedin"><i class="fab fa-linkedin-in"></i><a th:href="${resume.getLinkedin()}" th:text="'&nbsp;'+${resume.getLinkedin()}" target="_blank"></a></li>
+                    <li class="github"><i class="fab fa-github"></i><a th:href="${resume.getGitHub()}" th:text="'&nbsp;'+${resume.getGitHub()}" target="_blank"></a></li>
                 </ul>
             </div><!--//contact-container-->
             <div class="education-container container-block">
                 <h2 class="container-block-title">Education</h2>
-                <div class="item">
-                    <h4 class="degree">Advanced Diploma in <br> Software Development & Network Engineering</h4>
-                    <h5 class="meta">Sheridan College</h5>
-                    <div class="time">2017 - 2021</div>
+                <div class="item" th:each="ed:${educations}">
+                    <div class="deletebtn" sec:authorize="hasRole('OWNER')">
+                        <a th:href="@{/owner/deleteEducation/{id}(id=${ed.id})}" onclick="return confirm('Are you sure you want to delete this item')"><i class='fas fa-times-circle'></i></a>
+                    </div>
+                    <h4 class="degree" th:text="${ed.degree}"></h4> <h4 class="degree" th:text="${ed.program}"></h4>
+                    <h5 class="meta" th:text="${ed.school}"></h5>
+                    <div class="time" th:text="${ed.duration}"></div>
                 </div><!--//item-->
-                <div class="item">
-                    <h4 class="degree">BSc in Applied Physics</h4>
-                    <h5 class="meta">Beijing Institute of Technology</h5>
-                </div><!--//item-->
+
             </div><!--//education-container-->
 
             <div class="languages-container container-block">
@@ -66,48 +66,27 @@
             <section class="section summary-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Profile</h2>
                 <div class="summary">
-                    <p>Being passionate about Software development, I always have some new ideas, and usually I can find a
-                        better way to solve problems. To be a better myself is my everyday goal.</p>
+                    <p th:text="${resume.profile}"></p>
                 </div><!--//summary-->
             </section><!--//section-->
 
             <section class="section experiences-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fas fa-briefcase"></i></span>Experiences</h2>
 
-                <div class="item">
+                <div class="item" th:each="exp:${experiences}">
                     <div class="meta">
-                        <div class="upper-row row">
-                            <h3 class="job-title col"><strong>Junior Developer (co-op)</strong></h3>
-                            <div class="time col-auto ">AUG 2019 – DEC 2019</div>
+                        <div class="deletebtn" sec:authorize="hasRole('OWNER')">
+                        <a th:href="@{/owner/deleteExperience/{id}(id=${exp.id})}" onclick="return confirm('Are you sure you want to delete this item')"><i class='fas fa-times-circle'></i></a>
+                        </div>
+                            <div class="upper-row row">
+                            <h3 class="job-title col"><strong th:text="${exp.title}"></strong></h3>
+                            <div class="time col-auto " th:text="${exp.duration}"></div>
                         </div><!--//upper-row-->
-                        <div class="company">MERIDIAN CREDIT UNION (ST. CATHARINES)</div>
+                        <div class="company" th:text="${exp.company}"></div>
                     </div><!--//meta-->
-                    <div class="details">
-                        <p>Responsible for creating automation code by using C# Selenium, Appium for QA to do the testing.
-                            (Language used: C#)</p>
-                        <p>Added MVC codes in another project and added web elements and functions for the front end. (C#,
-                            Angular) </p>
+                    <div class="details" th:text="${exp.workContent}">
                     </div><!--//details-->
                 </div><!--//item-->
-
-                <div class="item">
-                    <div class="meta">
-                        <div class="upper-row row">
-                            <h3 class="job-title col"><strong>Junior Programmer (co-op)</strong></h3>
-                            <div class="time col-auto">JAN 2019 – APR 2019</div>
-                        </div><!--//upper-row-->
-                        <div class="company">SHERIDAN SCREEN INDUSTRIES RESEARCH AND TRAINING
-                            CENTER (TORONTO)</div>
-                    </div><!--//meta-->
-                    <div class="details">
-                        <p>Developed a Speech-to-Speech app which can communicate with people by using Microsoft Azure
-                            Cognitive Speech Service API. (Language used: C++) <br>
-                            Developed an app for the automation of Photoshop and Maya for the batch generation of different
-                            images. (Language used: Python)</p>
-                    </div><!--//details-->
-                </div><!--//item-->
-
-
 
             </section><!--//section-->
 
@@ -116,73 +95,22 @@
                 <div class="intro">
                     <p>Here is the list of my projects using different technologies. You can also check my GitHub page for more details.</p>
                 </div><!--//intro-->
-                <div class="item">
-                    <span class="project-title"><a href="#" target="_blank">Project A</a></span> - <span class="project-tagline">A software projects. </span>
+                <div class="item" th:each="entry:${myWorks}">
+                    <span class="project-title"><a th:href="@{/redirectTo/{url}(url=${entry.getUrlLink()})}" th:text="${entry.getProjectName()}" target="_blank"></a></span> - <span class="project-tagline" th:text="${entry.getDescription()}"> </span>
+                </div><!--//item-->
 
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="#" target="_blank">Project B</a></span> - <span class="project-tagline">A software projects. </span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="#" target="_blank">Project C</a></span> - <span class="project-tagline">A software projects. </span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="#" target="_blank">Project D</a></span> - <span class="project-tagline">A software projects. </span>
-                </div><!--//item-->
-                <div class="item">
-                    <span class="project-title"><a href="#" target="_blank">Project E</a></span> - <span class="project-tagline">A software projects. </span>
-                </div><!--//item-->
             </section><!--//section-->
 
             <section class="skills-section section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fas fa-rocket"></i></span>Skills &amp; Proficiency</h2>
                 <div class="skillset">
-                    <div class="item">
-                        <h3 class="level-title">Java &amp; Spring boot</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="item" th:each="sk:${skills}">
+                        <div class="deletebtn" sec:authorize="hasRole('OWNER')">
+                        <a th:href="@{/owner/deleteSkill/{id}(id=${sk.id})}" onclick="return confirm('Are you sure you want to delete this item')"><i class='fas fa-times-circle'></i></a>
                         </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">C# &amp; ASP.NET CORE</h3>
+                            <h3 class="level-title" th:text="${sk.name}"></h3>
                         <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Javascript &amp; jQuery</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Angular</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">HTML5 &amp; CSS</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">MySql</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 93%" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Sketch &amp; Photoshop</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" th:aria-valuenow="${sk.proficiency}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div><!--//item-->
 

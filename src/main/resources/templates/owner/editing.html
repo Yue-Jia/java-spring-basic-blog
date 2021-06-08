@@ -15,7 +15,10 @@
 <div th:replace="header :: header">...</div>
 <main role="main" class="py-5 flex-fill">
   <div class="container">
-    <h2>Editing</h2><a th:href="@{/owner/goAddPost}"><i class='fas fa-plus'></i>Add Post</a><a th:href="@{/owner/goAddMyWork}"><i class='fas fa-project-diagram'></i>Add Project</a>
+    <h2>Editing</h2>
+    <a th:href="@{/owner/goAddPost}"><i class='fas fa-plus'></i>Add Post</a>
+    <a th:href="@{/owner/goAddMyWork}"><i class='fas fa-project-diagram'></i>Add Project</a>
+    <a th:href="@{/owner/goEditResume}"><i class="fas fa-user-edit"></i>Edit Resume</a>
     <table class="table table-hover" id="dtBasicExample">
       <thead>
       <tr>
