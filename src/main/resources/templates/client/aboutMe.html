@@ -110,7 +110,7 @@
                         </div>
                             <h3 class="level-title" th:text="${sk.name}"></h3>
                         <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 95%" th:aria-valuenow="${sk.proficiency}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar theme-progress-bar" role="progressbar" th:style="'width: '+${sk.proficiency}+'%'" th:aria-valuenow="${sk.proficiency}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div><!--//item-->
 
