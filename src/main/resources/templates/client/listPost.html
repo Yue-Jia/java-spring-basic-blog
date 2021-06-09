@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
@@ -16,7 +16,7 @@
 <main role="main" class="py-5 flex-fill">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4 py-2 box-shadow" th:each="entry : ${blogPosts}">
+            <div class="col-md-4 py-2 box-shadow" th:each="entry : ${blogPosts}">
                 <img class="card-img-top" th:src="'https://picsum.photos/id/'+${entry.getId()}+'/500/350'" alt="Post Title Image"><a class="blogPost-url" th:href="@{'/blogPost/'+${entry.getId()}}"></a></img>
                 <div class="card-body">
                     <div class="card-title"><a th:href="@{/postDetails/{id}(id=${entry.id})}" th:text="${entry.getTitle()}"></a></div>
