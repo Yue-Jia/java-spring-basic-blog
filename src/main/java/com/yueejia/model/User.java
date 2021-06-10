@@ -46,4 +46,13 @@ public class User {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss ");
         return formatter.format(this.lastLogin);
     }
+    public boolean hasRole(String r){
+        List<Role> roles = this.getRole();
+        for(Role role: roles){
+            if(role.getRoleName().endsWith(r)){
+                return true;
+            }
+
+        }return false;
+    }
 }

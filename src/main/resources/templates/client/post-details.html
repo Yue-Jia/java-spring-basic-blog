@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
+<!--    <script th:src="@{/js/modernizr-2.8.3-respond-1.4.2.min.js}"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -57,10 +58,15 @@
                                 <div class="be-img-comment">
                                         <img th:src="${cm.getUser().getAvatar()}" alt="avatar"
                                              class="be-ava-comment">
-                                    <div class="form-check form-switch" sec:authorize="hasRole('OWNER')">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+
+                                    <form th:action="@{/owner/updateEnabled/{id}(id=${cm.user.id})}" class="form-check form-switch" sec:authorize="hasRole('OWNER')">
+
+                                        <div th:style="${cm.getUser().hasRole('OWNER')} ? 'display:none' : 'display:'">
+                                        <input type="hidden" th:value="${cm.user.id}" th:id="'muteuser'+${cm.user.id}">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" th:checked="${!cm.user.enabled}" th:onchange="'muteUser('+${cm.user.id}+')'">
                                         <label class="form-check-label" for="flexSwitchCheckChecked">Mute</label>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="be-comment-content">
 
@@ -80,7 +86,7 @@
                             <div  sec:authorize="isAnonymous()" id="googlebtn">
                                 <strong>Comment: &nbsp;</strong>
                                 <br>
-                                <a th:href = "@{/oauth2/authorization/google}"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>
+                                <a th:href = "@{/oauth2/authorization/google}" th:onclick="saveBlogPageId()"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>
                             </div>
                             <form class="form-block" sec:authorize="isAuthenticated()" th:action="@{/postDetails/{id}/addComment(id=${blogPost.getId()})}" th:object="${comment123}" method="post" id="ddd">
                                 <div class="row">
@@ -124,10 +130,47 @@
     </div>
 <div th:replace="footer :: footer">...</div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="js/vendor/jquery-slim.min.js"></script>
+<script>
+<!--$(document).ready(function() {-->
+
+<!--    $('input[type="checkbox"]').click(function() {-->
+<!--        var muteuser = $('#muteuser').val();-->
+<!--        if($(this).prop("checked") == true) {-->
+<!--            console.log(muteuser);-->
+<!--            $.ajax({-->
+<!--            url: '/owner/updateMuted/'+muteuser,-->
+<!--            type: 'PUT',-->
+<!--            contentType: 'application/json',-->
+<!--            success: function(result) {-->
+<!--                alert(result);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--        else if($(this).prop("checked") == false) {-->
+<!--            console.log(muteuser);-->
+<!--            $.ajax({-->
+<!--            url: '/owner/updateEnabled/'+muteuser,-->
+<!--            type: 'PUT',-->
+<!--            contentType: 'application/json',-->
+<!--            success: function(result) {-->
+<!--                alert(result);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--});-->
+
+function muteUser(id){
+    $.post("/owner/updateMuted/"+id,data=>alert(data));
+}
+function saveBlogPageId(){
+    $.post("/saveServletContext",data=>console.log(data));
+}
+</script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+<!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="js/vendor/jquery-slim.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
