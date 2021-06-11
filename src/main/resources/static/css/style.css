@@ -895,3 +895,8 @@ only screen and (max-width: 760px),
 	td:nth-of-type(6):before { content: ""; }*/
 
 }
+
+#siteseal{
+    position:relative;
+    float:right;
+}

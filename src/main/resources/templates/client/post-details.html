@@ -87,7 +87,11 @@
                                 <strong>Comment: &nbsp;</strong>
                                 <br>
                                 <a th:href = "@{/oauth2/authorization/google}" th:onclick="saveBlogPageId()"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>
+                                <a id="github-button" class="btn btn-block btn-social btn-github" th:href="@{/oauth2/authorization/github}" th:onclick="saveBlogPageId()">
+                                    <i class="fa fa-github"></i> Sign in with Github
+                                </a>
                             </div>
+
                             <form class="form-block" sec:authorize="isAuthenticated()" th:action="@{/postDetails/{id}/addComment(id=${blogPost.getId()})}" th:object="${comment123}" method="post" id="ddd">
                                 <div class="row">
 <!--                                    <div class="col-md-12">-->
