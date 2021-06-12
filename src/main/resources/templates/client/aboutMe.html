@@ -28,8 +28,8 @@
                 <div class="contact-container container-block">
                     <ul class="list-unstyled contact-list">
                         <li class="email"><i class="fas fa-envelope"></i><a th:href="'mailto:'+${resume.getEmail()}" th:text="'&nbsp;'+${resume.getEmail()}"></a></li>
-                        <li class="linkedin"><i class="fab fa-linkedin-in"></i><a th:href="${resume.getLinkedin()}" th:text="'&nbsp;'+${resume.getLinkedin()}" target="_blank"></a></li>
-                        <li class="github"><i class="fab fa-github"></i><a th:href="${resume.getGitHub()}" th:text="'&nbsp;'+${resume.getGitHub()}" target="_blank"></a></li>
+                        <li class="linkedin"><i class="fab fa-linkedin-in"></i><a th:href="'https://'+${resume.getLinkedin()}" th:text="'&nbsp;'+${resume.getLinkedin()}" target="_blank"></a></li>
+                        <li class="github"><i class="fab fa-github"></i><a th:href="'https://'+${resume.getGitHub()}" th:text="'&nbsp;'+${resume.getGitHub()}" target="_blank"></a></li>
                     </ul>
                 </div><!--//contact-container-->
                 <div class="education-container container-block">
