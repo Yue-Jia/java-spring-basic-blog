@@ -1,5 +1,5 @@
 package com.yueejia.model;
 
 public enum AuthenticationProvider {
-    LOCAL, GOOGLE
+    LOCAL, GOOGLE, FACEBOOK
 }

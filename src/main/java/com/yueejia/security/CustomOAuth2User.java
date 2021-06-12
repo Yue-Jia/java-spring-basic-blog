@@ -46,4 +46,27 @@ public class CustomOAuth2User implements OAuth2User {
     public String getUsername(){
         return oAuth2User.getAttribute("sub");
     }
+
+    public String getFacebookUsername(){
+        return oAuth2User.getAttribute("name");
+    }
+    public String getFacebookId(){
+        return oAuth2User.getAttribute("id");
+    }
+    public String getFacebookImageUrl() {
+        if(oAuth2User.getAttributes().containsKey("picture")) {
+            Map<String, Object> pictureObj = (Map<String, Object>) oAuth2User.getAttributes().get("picture");
+            if(pictureObj.containsKey("data")) {
+                Map<String, Object>  dataObj = (Map<String, Object>) pictureObj.get("data");
+                if(dataObj.containsKey("url")) {
+                    return (String) dataObj.get("url");
+                }
+            }
+        }else{
+            String url = "/images/pic1.png";
+            return url;
+        }
+        return null;
+    }
+
 }

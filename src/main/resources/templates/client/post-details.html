@@ -85,11 +85,20 @@
                             <br>
                             <div  sec:authorize="isAnonymous()" id="googlebtn">
                                 <strong>Comment: &nbsp;</strong>
-                                <br>
-                                <a th:href = "@{/oauth2/authorization/google}" th:onclick="saveBlogPageId()"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>
-                                <a id="github-button" class="btn btn-block btn-social btn-github" th:href="@{/oauth2/authorization/github}" th:onclick="saveBlogPageId()">
-                                    <i class="fa fa-github"></i> Sign in with Github
-                                </a>
+                                <br><br>
+<!--                                <a th:href = "@{/oauth2/authorization/google}" th:onclick="saveBlogPageId()"><img th:src="@{/images/btn_google_signin_dark_focus_web.png}" /></a>-->
+<!--                                <a id="github-button" class="btn btn-block btn-social btn-github" th:href="@{/oauth2/authorization/github}" th:onclick="saveBlogPageId()">-->
+<!--                                    <i class="fa fa-github"></i> Sign in with Github-->
+<!--                                </a>-->
+                                <div class="btn-group">
+                                    <a class='btn btn-danger disabled'><i class="fa fa-google-plus" style="width:16px; height:20px"></i></a>
+                                    <a class='btn btn-danger' th:href = "@{/oauth2/authorization/google}" th:onclick="saveBlogPageId()" style="width:12em;"> Sign in with Google</a>
+                                </div>
+                                <br><br>
+                                <div class="btn-group">
+                                    <a class='btn btn-primary disabled'><i class="fa fa-facebook" style="width:16px; height:20px"></i></a>
+                                    <a class='btn btn-primary ' th:href="@{/oauth2/authorization/facebook}" th:onclick="saveBlogPageId()" style="width:12em"> Sign in with Facebook</a>
+                                </div>
                             </div>
 
                             <form class="form-block" sec:authorize="isAuthenticated()" th:action="@{/postDetails/{id}/addComment(id=${blogPost.getId()})}" th:object="${comment123}" method="post" id="ddd">
@@ -170,6 +179,11 @@ function muteUser(id){
 function saveBlogPageId(){
     $.post("/saveServletContext",data=>console.log(data));
 }
+
+
+
+
+
 </script>
 <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
 <!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->

@@ -42,12 +42,22 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         if(user == null){
             User usr = new User();
             ZonedDateTime zdt = ZonedDateTime.now();
-            usr.setAuth_provider(AuthenticationProvider.GOOGLE);
-            usr.setAvatar(oAuth2User.getImageUrl());
+
+            if(oAuth2User.getUsername()!=null&&oAuth2User.getImageUrl()!=null){
+                usr.setAvatar(oAuth2User.getImageUrl());
+                usr.setUsername(oAuth2User.getUsername());
+                usr.setAuth_provider(AuthenticationProvider.GOOGLE);
+            }else{
+                System.out.println(oAuth2User.getFacebookImageUrl());
+                usr.setAvatar(oAuth2User.getFacebookImageUrl());
+                usr.setUsername(oAuth2User.getFacebookUsername());
+                usr.setAuth_provider(AuthenticationProvider.FACEBOOK);
+            }
+
             usr.setEmail(email);
             usr.getRole().add(role);
             usr.setName(oAuth2User.getName());
-            usr.setUsername(oAuth2User.getUsername());
+
             usr.setLastLogin(zdt);
             userRepository.save(usr);
             redirectStrategy.sendRedirect(request,response,previousUrl);
