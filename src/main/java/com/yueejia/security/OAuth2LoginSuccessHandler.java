@@ -48,7 +48,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 usr.setUsername(oAuth2User.getUsername());
                 usr.setAuth_provider(AuthenticationProvider.GOOGLE);
             }else{
-                System.out.println(oAuth2User.getFacebookImageUrl());
                 usr.setAvatar(oAuth2User.getFacebookImageUrl());
                 usr.setUsername(oAuth2User.getFacebookUsername());
                 usr.setAuth_provider(AuthenticationProvider.FACEBOOK);
@@ -64,14 +63,20 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         }else{
             //update existing customer
             ZonedDateTime zdt = ZonedDateTime.now();
-            user.setAuth_provider(AuthenticationProvider.GOOGLE);
-            user.setAvatar(oAuth2User.getImageUrl());
             user.setEmail(email);
             if(!user.getRole().contains(role)){
                 user.getRole().add(role);
             }
             user.setName(oAuth2User.getName());
-            user.setUsername(oAuth2User.getUsername());
+            if(oAuth2User.getUsername()!=null&&oAuth2User.getImageUrl()!=null){
+                user.setAvatar(oAuth2User.getImageUrl());
+                user.setUsername(oAuth2User.getUsername());
+                user.setAuth_provider(AuthenticationProvider.GOOGLE);
+            }else{
+                user.setAvatar(oAuth2User.getFacebookImageUrl());
+                user.setUsername(oAuth2User.getFacebookUsername());
+                user.setAuth_provider(AuthenticationProvider.FACEBOOK);
+            }
             user.setLastLogin(zdt);
             userRepository.save(user);
             redirectStrategy.sendRedirect(request,response,previousUrl);

@@ -59,7 +59,7 @@ public class CustomOAuth2User implements OAuth2User {
             if(pictureObj.containsKey("data")) {
                 Map<String, Object>  dataObj = (Map<String, Object>) pictureObj.get("data");
                 if(dataObj.containsKey("url")) {
-                    return (String) dataObj.get("url");
+                    return  dataObj.get("url").toString();
                 }
             }
         }else{
