@@ -31,6 +31,9 @@
                     <a th:href="@{/owner/editing}">EDIT</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('OWNER')">
+                    <a th:href="@{/owner/visitor}">IP</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('OWNER')">
                     <a th:href="@{/logout}">LOGOUT</a>
                 </li>
             </ul>

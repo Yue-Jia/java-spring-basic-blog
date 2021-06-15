@@ -13,7 +13,7 @@ public class ImageHandler {
     public static void removeOldImage(String oldFileUrl) {
         try {
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            String oldFilePathString = path.getAbsolutePath()+ "\\static\\" + oldFileUrl.replace("/","\\");
+            String oldFilePathString = path.getAbsolutePath().replace("\\","/")+ "/static/" + oldFileUrl;
             File oldFile = new File(oldFilePathString);
             oldFile.delete();
         }catch(Exception e) {

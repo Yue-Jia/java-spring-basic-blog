@@ -15,8 +15,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -36,12 +38,41 @@ public class BlogController {
     private RoleRepository roleRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private VisitorIpInfoRepository visitorIpInfoRepository;
+    @Autowired
+    private RequestService requestService;
+
+//    @RequestMapping("/owner/traffic")
+//    public ModelAndView index(HttpServletRequest request) {
+//        ModelAndView model = new ModelAndView("index");
+//        String clientIp = requestService.getClientIp(request);
+//        model.addObject("clientIp", clientIp);
+//        return model;
+//    }
 
     @GetMapping("/")
-    public String listPosts(ModelMap model){
+    public String listPosts(ModelMap model,HttpServletRequest request){
         List<BlogPost> lp = postRepository.findAll();
         model.put("posts",lp);
+        String clientIp = requestService.getClientIp(request);
+        VisitorIpInfo visitorIpInfo = new VisitorIpInfo();
+        visitorIpInfo.setVisitorIp(clientIp);
+        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("America/Montreal"));
+        visitorIpInfo.setLastLogin(zdt);
+        visitorIpInfoRepository.save(visitorIpInfo);
         return "client/home";
+    }
+    @GetMapping("/owner/visitor")
+    public String goVisitor(ModelMap modelMap){
+        List<VisitorIpInfo> visitorIpInfos = visitorIpInfoRepository.findAll();
+        modelMap.put("allIps",visitorIpInfos);
+        return "owner/visitor";
+    }
+    @GetMapping("/owner/deleteAllIps")
+    public String deleteAllIps(){
+        visitorIpInfoRepository.deleteAll();
+        return "redirect:/owner/visitor";
     }
     @GetMapping("/logoutSuccessful")
     public String goLogout(){

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
@@ -16,7 +16,7 @@
         <main role="main" class="py-5 flex-fill">
             <div class="container">
                     <h5 th:text = "${errormessage}" class="error"></h5>
-                    <table  class="row h-100 justify-content-center align-items-center" style="color:#A0522D; text-shadow: 1px 1px rgb(233, 150, 122);">
+                    <table  class="row h-100 justify-content-center align-items-center" style="color:#A0522D; text-shadow: 1px 1px rgb(233, 150, 122);" sec:authorize="hasRole('OWNER')">
                         <tr><td>Date</td><td th:text="${timestamp}"/></tr>
                         <tr><td>Path</td><td th:text="${path}"/></tr>
                         <tr><td>Error</td><td th:text="${error}"/></tr>

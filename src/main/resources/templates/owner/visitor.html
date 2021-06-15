@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header :: header">...</div>
+<div id="page-container">
+    <div id="content-wrap">
+        <main role="main" class="py-5 flex-fill">
+            <div class="container">
+                <a th:href="@{/owner/deleteAllIps}" onclick="return confirm('Are you sure you want to delete all visitor IP history?')">Delete All</a>
+<!--                <p>Country:</p><p id="cn"></p>-->
+<!--                <p>Region:</p><p id="rg"></p>-->
+<!--                <p>City</p><p id="ct"></p>-->
+<!--                <p>Zip</p><p id="zp"></p>-->
+                <table class="table table-hover" id="dtBasicExample" sec:authorize="hasRole('OWNER')">
+                <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Visit Time</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                <tr th:each="ip,iter:${allIps}">
+                    <td><p th:text="${ip.visitorIp}"></p></td>
+                    <td><p th:text="${ip.getDateStr()}"></p></td>
+                    <td><a href="#" th:onclick="showInfo([[${ip.visitorIp}]])">Show Info</a></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </main>
+    </div>
+    <div th:replace="footer :: footer">...</div>
+</div>
+
+<script>
+
+
+
+function showInfo(ip){
+var access_key = 'a0f006d68f41e65bc3545d859f04631d';
+
+$.ajax({
+    url: 'http://api.ipstack.com/92.205.23.46?access_key=' + access_key,
+    dataType: 'jsonp',
+    success: function(json) {
+    var a = JSON.parse(JSON.stringify(json));
+    alert(a.city);
+<!--        $('#cn').html(json.country_name);-->
+<!--        $('#rg').html(json.region_name);-->
+<!--        $('#ct').html(json.city);-->
+<!--        $('#zp').html(json.zip);-->
+    }
+});
+<!--$.get('http://api.ipstack.com/' + ip + '?access_key=' + access_key,json=>alert(json.city+' '+json.zip+' '+json.region_name+' '+json.country_name));-->
+
+}
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
