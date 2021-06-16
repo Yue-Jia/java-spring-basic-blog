@@ -48,18 +48,14 @@
 
 
 function showInfo(ip){
-var access_key = 'a0f006d68f41e65bc3545d859f04631d';
+var access_key = 'bb1f6d91c25a7c';
 
 $.ajax({
-    url: 'http://api.ipstack.com/92.205.23.46?access_key=' + access_key,
+    url: 'https://ipinfo.io/'+ip+'?token='+access_key,
     dataType: 'jsonp',
     success: function(json) {
     var a = JSON.parse(JSON.stringify(json));
-    alert(a.city);
-<!--        $('#cn').html(json.country_name);-->
-<!--        $('#rg').html(json.region_name);-->
-<!--        $('#ct').html(json.city);-->
-<!--        $('#zp').html(json.zip);-->
+    alert(a.city+' : '+a.country+' : '+a.postal+' : '+a.hostname);
     }
 });
 <!--$.get('http://api.ipstack.com/' + ip + '?access_key=' + access_key,json=>alert(json.city+' '+json.zip+' '+json.region_name+' '+json.country_name));-->
