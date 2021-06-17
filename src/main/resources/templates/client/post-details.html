@@ -144,35 +144,6 @@
 <div th:replace="footer :: footer">...</div>
 </div>
 <script>
-<!--$(document).ready(function() {-->
-
-<!--    $('input[type="checkbox"]').click(function() {-->
-<!--        var muteuser = $('#muteuser').val();-->
-<!--        if($(this).prop("checked") == true) {-->
-<!--            console.log(muteuser);-->
-<!--            $.ajax({-->
-<!--            url: '/owner/updateMuted/'+muteuser,-->
-<!--            type: 'PUT',-->
-<!--            contentType: 'application/json',-->
-<!--            success: function(result) {-->
-<!--                alert(result);-->
-<!--                }-->
-<!--            });-->
-<!--        }-->
-<!--        else if($(this).prop("checked") == false) {-->
-<!--            console.log(muteuser);-->
-<!--            $.ajax({-->
-<!--            url: '/owner/updateEnabled/'+muteuser,-->
-<!--            type: 'PUT',-->
-<!--            contentType: 'application/json',-->
-<!--            success: function(result) {-->
-<!--                alert(result);-->
-<!--                }-->
-<!--            });-->
-<!--        }-->
-<!--    });-->
-<!--});-->
-
 function muteUser(id){
     $.post("/owner/updateMuted/"+id,data=>alert(data));
 }
@@ -180,7 +151,7 @@ function saveBlogPageId(){
     $.post("/saveServletContext",data=>console.log(data));
 }
 
-
+$("img").not(".be-ava-comment").not("#myIcon").css({"width":"100%","height":"auto"});
 
 
 
