@@ -74,7 +74,7 @@ public class BlogController {
     }
     @GetMapping("/listP")
     public String goListP(Model model,HttpServletRequest request){
-        List<BlogPost> posts =postRepository.findAll();
+        List<BlogPost> posts =postRepository.findAllByOrderByIdDesc();
         model.addAttribute("blogPosts",posts);
         String clientIp = requestService.getClientIp(request);
         VisitorIpInfo visitorIpInfo = new VisitorIpInfo();
