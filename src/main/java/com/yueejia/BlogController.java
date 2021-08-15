@@ -52,15 +52,9 @@ public class BlogController {
 //    }
 
     @GetMapping("/")
-    public String listPosts(ModelMap model,HttpServletRequest request){
+    public String listPosts(ModelMap model){
         List<BlogPost> lp = postRepository.findAll();
         model.put("posts",lp);
-        String clientIp = requestService.getClientIp(request);
-        VisitorIpInfo visitorIpInfo = new VisitorIpInfo();
-        visitorIpInfo.setVisitorIp(clientIp);
-        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("America/Montreal"));
-        visitorIpInfo.setLastLogin(zdt);
-        visitorIpInfoRepository.save(visitorIpInfo);
         return "client/home";
     }
     @GetMapping("/owner/visitor")
@@ -79,9 +73,15 @@ public class BlogController {
         return "logoutSuccessful";
     }
     @GetMapping("/listP")
-    public String goListP(Model model){
+    public String goListP(Model model,HttpServletRequest request){
         List<BlogPost> posts =postRepository.findAll();
         model.addAttribute("blogPosts",posts);
+        String clientIp = requestService.getClientIp(request);
+        VisitorIpInfo visitorIpInfo = new VisitorIpInfo();
+        visitorIpInfo.setVisitorIp(clientIp);
+        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("America/Montreal"));
+        visitorIpInfo.setLastLogin(zdt);
+        visitorIpInfoRepository.save(visitorIpInfo);
         return "client/listPost";
     }
 
