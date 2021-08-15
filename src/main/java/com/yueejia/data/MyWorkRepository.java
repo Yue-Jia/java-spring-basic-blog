@@ -7,5 +7,6 @@ import java.util.List;
 public interface MyWorkRepository extends CrudRepository<MyWork,Integer> {
     MyWork findById(Long id);
     List<MyWork> findAll();
+    List<MyWork> findAllByOrderByIdDesc();
     void deleteById(Long id);
 }

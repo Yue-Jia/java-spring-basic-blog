@@ -54,9 +54,9 @@ public class ResumeController {
             model.addAttribute("resume",resume);
         else
             model.addAttribute("resume", new Resume());
-        model.addAttribute("experiences", experienceRepository.findAll());
+        model.addAttribute("experiences", experienceRepository.findAllByOrderByIdDesc());
         model.addAttribute("skills",skillRepository.findAll());
-        model.addAttribute("educations",educationRepository.findAll());
+        model.addAttribute("educations",educationRepository.findAllByOrderByIdDesc());
         return "client/aboutMe";
     }
 

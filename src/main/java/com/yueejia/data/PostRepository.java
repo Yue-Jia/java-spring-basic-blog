@@ -12,6 +12,7 @@ public interface PostRepository extends CrudRepository<BlogPost,Integer> {
     BlogPost findByZonedDateTime(ZonedDateTime zonedDateTime);
     BlogPost findByUserId(Long userId);
     List<BlogPost> findAll();
+    List<BlogPost> findAllByOrderByIdDesc();
     void deleteById(Long id);
 
 }

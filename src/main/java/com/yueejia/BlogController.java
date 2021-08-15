@@ -53,7 +53,7 @@ public class BlogController {
 
     @GetMapping("/")
     public String listPosts(ModelMap model){
-        List<BlogPost> lp = postRepository.findAll();
+        List<BlogPost> lp = postRepository.findAllByOrderByIdDesc();
         model.put("posts",lp);
         return "client/home";
     }
@@ -232,7 +232,7 @@ public class BlogController {
     }
     @GetMapping("/listMyWork")
     public String goListMyWork(Model model){
-        List<MyWork> myWorks =myWorkRepository.findAll();
+        List<MyWork> myWorks =myWorkRepository.findAllByOrderByIdDesc();
         model.addAttribute("myWorks",myWorks);
         return "client/myWork";
     }
