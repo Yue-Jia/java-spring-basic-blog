@@ -93,3 +93,8 @@ build/
 .vscode/
 
 .DS_Store
+
+
+###application.properties
+application.properties
+Data.sql
